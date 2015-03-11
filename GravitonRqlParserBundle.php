@@ -15,4 +15,3 @@ use Symfony\Component\HttpKernel\Bundle\Bundle;
 class GravitonRqlParserBundle extends Bundle
 {
 }
-

@@ -4,9 +4,15 @@
            xsi:schemaLocation="http://symfony.com/schema/dic/services
         http://symfony.com/schema/dic/services/services-1.0.xsd"
         >
-    <parameters>
-    </parameters>
-
     <services>
+        <service id="graviton.rql.parser" class="Graviton\Rql\Parser"/>
+        <service id="graviton.rql.lexer" class="Graviton\Rql\Lexer"/>
+
+        <!-- Visitors -->
+        <service id="graviton.rql.visitor.mongo.odm" class="Graviton\Rql\Visitor\MongoOdm" />
+
+        <!-- Operations -->
+        <service id="graviton.rql.operation" class="Graviton\Rql\AST\Operation" />
+
     </services>
 </container>
