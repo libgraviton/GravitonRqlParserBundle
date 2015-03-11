@@ -13,11 +13,15 @@
     "non-feature-branches": ["master", "develop", "support/*"],
 
     "require": {
-        "graviton/php-rql-parser": "dev-develop"
+        "graviton/php-rql-parser": "dev-feature/bundle_refactoring"
     },
 
     "require-dev": {
-        "symfony/framework-bundle": "~2.7"
+        "symfony/framework-bundle": "~2.7",
+        "lapistano/proxy-object": "~2.1",
+        "doctrine/mongodb-odm": "1.0.0-BETA11@dev",
+        "jmikola/geojson": "~1.0",
+        "phpunit/phpunit": "~4.7"
     },
 
     "autoload": {
