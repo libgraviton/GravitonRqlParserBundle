@@ -1,0 +1,30 @@
+{
+    "name": "graviton/rql-parser-bundle",
+    "description": "Port of the php-rql-parser into the world of Symfony 2.",
+    "license": "GPL",
+    "authors": [
+        {
+            "name": "List of contributors",
+            "homepage": "https://github.com/libgraviton/GravitonRqlParserBundle/graphs/contributors"
+        }
+    ],
+    "minimum-stability": "dev",
+    "prefer-stable": true,
+    "non-feature-branches": ["master", "develop", "support/*"],
+
+    "require": {
+        "graviton/php-rql-parser": "dev-develop"
+    },
+
+    "require-dev": {
+        "symfony/framework-bundle": "~2.7",
+        "phpunit/phpunit": "~4.7",
+        "squizlabs/php_codesniffer": "~2.2"
+    },
+
+    "autoload": {
+        "psr-4": {
+            "Graviton\\RqlParserBundle\\": ""
+        }
+    }
+}
