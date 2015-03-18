@@ -2,8 +2,8 @@
 
 namespace Graviton\RqlParserBundle\Tests;
 
-
 use lapistano\ProxyObject\ProxyBuilder;
+
 
 class FactoryTest extends \PHPUnit_Framework_TestCase
 {
@@ -83,7 +83,7 @@ class FactoryTest extends \PHPUnit_Framework_TestCase
             ->setMethods(array('supportsClass'))
             ->getProxy();
 
-        $this->setExpectedException('\Graviton\Rql\RqlParserException');
+        $this->setExpectedException('\Graviton\Rql\Exceptions\VisitorNotSupportedException');
 
         $factory->supportsClass('NoSupported');
     }
@@ -97,7 +97,7 @@ class FactoryTest extends \PHPUnit_Framework_TestCase
 
         $factory->supportedVisitors['noop'] = '\stdClass';
 
-        $this->setExpectedException('\Graviton\Rql\RqlParserException');
+        $this->setExpectedException('\Graviton\Rql\Exceptions\VisitorInterfaceNotImplementedException');
 
         $factory->classImplementsVisitorInterface('NoOp');
     }

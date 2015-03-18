@@ -66,12 +66,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/libgraviton/php-rql-parser.git",
-                "reference": "38f92c745e5db300425f267f2ef424c370c50d75"
+                "reference": "00f6a614561f4ea8cc7a3a545e2420b61966c650"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/libgraviton/php-rql-parser/zipball/38f92c745e5db300425f267f2ef424c370c50d75",
-                "reference": "38f92c745e5db300425f267f2ef424c370c50d75",
+                "url": "https://api.github.com/repos/libgraviton/php-rql-parser/zipball/00f6a614561f4ea8cc7a3a545e2420b61966c650",
+                "reference": "00f6a614561f4ea8cc7a3a545e2420b61966c650",
                 "shasum": ""
             },
             "require": {
@@ -81,11 +81,12 @@
             "require-dev": {
                 "doctrine/data-fixtures": "~1.0",
                 "doctrine/mongodb-odm": "1.0.0-BETA11@dev",
+                "libgraviton/codesniffer": "~1.3",
                 "phpunit/phpunit": "*",
                 "squizlabs/php_codesniffer": "~2.2"
             },
             "suggest": {
-                "doctrine/mongodb-odm": "Needs ~1.0 if you want to use Graviton\\Rql\\Queriable\\MongoOdm."
+                "doctrine/mongodb-odm": "Needs ~1.0 if you want to use Graviton\\Rql\\Visitor\\MongoOdm."
             },
             "type": "library",
             "autoload": {
@@ -99,8 +100,8 @@
             ],
             "authors": [
                 {
-                    "name": "Dario Nuevo",
-                    "email": "dario.nuevo@swisscom.com"
+                    "name": "List of contributors",
+                    "homepage": "https://github.com/libgraviton/php-rql-parser/graphs/contributors"
                 }
             ],
             "description": "A standalone RQL (Resource Query Language) Parser with flexible usage possibilities",
@@ -113,7 +114,7 @@
                 "rest",
                 "rql"
             ],
-            "time": "2015-03-11 18:35:02"
+            "time": "2015-03-18 13:25:09"
         }
     ],
     "packages-dev": [

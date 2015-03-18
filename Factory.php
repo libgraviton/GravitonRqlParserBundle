@@ -5,8 +5,9 @@
 namespace Graviton\RqlParserBundle;
 
 use Doctrine\ODM\MongoDB\Query\Builder;
+use Graviton\Rql\Exceptions\VisitorInterfaceNotImplementedException;
+use Graviton\Rql\Exceptions\VisitorNotSupportedException;
 use Graviton\Rql\Parser;
-use Graviton\Rql\RqlParserException;
 
 /**
  * @author  List of contributors <https://github.com/libgraviton/GravitonRqlParserBundle/graphs/contributors>
@@ -47,7 +48,6 @@ class Factory
      * @param string  $name         Classname of the visitor to be initialized
      * @param Builder $queryBuilder Doctrine QueryBuilder
      *
-     * @throws RqlParserException
      * @return \Graviton\Rql\Visitor\VisitorInterface
      */
     protected function initVisitor($name, Builder $queryBuilder = null)
@@ -89,14 +89,13 @@ class Factory
      *
      * @param string $name
      *
-     * @throws RqlParserException
+     * @throws VisitorNotSupportedException
      */
     protected function supportsClass($name)
     {
         if (!array_key_exists(strtolower($name), $this->supportedVisitors)) {
-            throw new RqlParserException(
-                sprintf('Provided name (%s) is not a supported visitor.', $name),
-                RqlParserException::VISITOR_NOT_SUPPORTED
+            throw new VisitorNotSupportedException(
+                sprintf('Provided name (%s) is not a supported visitor.', $name)
             );
         }
     }
@@ -106,16 +105,15 @@ class Factory
      *
      * @param string $name
      *
-     * @throws RqlParserException
+     * @throws VisitorInterfaceNotImplementedException
      */
     protected function classImplementsVisitorInterface($name)
     {
         $reflection = new \ReflectionClass($this->supportedVisitors[strtolower($name)]);
 
         if (!$reflection->implementsInterface('\Graviton\Rql\Visitor\VisitorInterface')) {
-            throw new RqlParserException(
-                sprintf('Provided visitor (%s) does not implement the VisitorInterface.', $name),
-                RqlParserException::VISITOR_INTERFACE_NOT_IMPLEMENTED
+            throw new VisitorInterfaceNotImplementedException(
+                sprintf('Provided visitor (%s) does not implement the VisitorInterface.', $name)
             );
         }
     }
