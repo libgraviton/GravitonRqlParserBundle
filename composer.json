@@ -13,7 +13,7 @@
     "non-feature-branches": ["master", "develop", "support/*"],
 
     "require": {
-        "graviton/php-rql-parser": "dev-feature/bundle_refactoring"
+        "graviton/php-rql-parser": "~2.0@alpha"
     },
 
     "require-dev": {
