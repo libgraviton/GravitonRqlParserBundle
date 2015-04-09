@@ -2,6 +2,7 @@
 /**
  * GravitonRqlParserBundle integrate RQL services with symfony 2.
  */
+
 namespace Graviton\RqlParserBundle;
 
 use Symfony\Component\HttpKernel\Bundle\Bundle;
