@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "3d91f44d5bbedefc0c6c6fe22c791eb3",
+    "hash": "20321ec61d1050db5fc7abb0ea3b6587",
     "packages": [
         {
             "name": "doctrine/lexer",
@@ -761,6 +761,33 @@
                 "testing"
             ],
             "time": "2014-07-11 12:51:34"
+        },
+        {
+            "name": "libgraviton/codesniffer",
+            "version": "v1.3.0",
+            "target-dir": "CodeSniffer/Standards/ENTB",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/libgraviton/codesniffer-ruleset-entb.git",
+                "reference": "6f10debdb3de17b241544e28c0e874bb85a948a8"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/libgraviton/codesniffer-ruleset-entb/zipball/6f10debdb3de17b241544e28c0e874bb85a948a8",
+                "reference": "6f10debdb3de17b241544e28c0e874bb85a948a8",
+                "shasum": ""
+            },
+            "type": "phpcs-standard",
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause",
+                "GPL-3.0+"
+            ],
+            "keywords": [
+                "codesniffer",
+                "libgraviton"
+            ],
+            "time": "2015-02-23 21:52:18"
         },
         {
             "name": "phpdocumentor/reflection-docblock",
@@ -1652,6 +1679,80 @@
             "description": "Library that helps with managing the version number of Git-hosted PHP projects",
             "homepage": "https://github.com/sebastianbergmann/version",
             "time": "2015-02-24 06:35:25"
+        },
+        {
+            "name": "squizlabs/php_codesniffer",
+            "version": "2.3.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/squizlabs/PHP_CodeSniffer.git",
+                "reference": "5046b0e01c416fc2b06df961d0673c85bcdc896c"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/squizlabs/PHP_CodeSniffer/zipball/5046b0e01c416fc2b06df961d0673c85bcdc896c",
+                "reference": "5046b0e01c416fc2b06df961d0673c85bcdc896c",
+                "shasum": ""
+            },
+            "require": {
+                "ext-tokenizer": "*",
+                "ext-xmlwriter": "*",
+                "php": ">=5.1.2"
+            },
+            "bin": [
+                "scripts/phpcs",
+                "scripts/phpcbf"
+            ],
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "2.0.x-dev"
+                }
+            },
+            "autoload": {
+                "classmap": [
+                    "CodeSniffer.php",
+                    "CodeSniffer/CLI.php",
+                    "CodeSniffer/Exception.php",
+                    "CodeSniffer/File.php",
+                    "CodeSniffer/Fixer.php",
+                    "CodeSniffer/Report.php",
+                    "CodeSniffer/Reporting.php",
+                    "CodeSniffer/Sniff.php",
+                    "CodeSniffer/Tokens.php",
+                    "CodeSniffer/Reports/",
+                    "CodeSniffer/Tokenizers/",
+                    "CodeSniffer/DocGenerators/",
+                    "CodeSniffer/Standards/AbstractPatternSniff.php",
+                    "CodeSniffer/Standards/AbstractScopeSniff.php",
+                    "CodeSniffer/Standards/AbstractVariableSniff.php",
+                    "CodeSniffer/Standards/IncorrectPatternException.php",
+                    "CodeSniffer/Standards/Generic/Sniffs/",
+                    "CodeSniffer/Standards/MySource/Sniffs/",
+                    "CodeSniffer/Standards/PEAR/Sniffs/",
+                    "CodeSniffer/Standards/PSR1/Sniffs/",
+                    "CodeSniffer/Standards/PSR2/Sniffs/",
+                    "CodeSniffer/Standards/Squiz/Sniffs/",
+                    "CodeSniffer/Standards/Zend/Sniffs/"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Greg Sherwood",
+                    "role": "lead"
+                }
+            ],
+            "description": "PHP_CodeSniffer tokenizes PHP, JavaScript and CSS files and detects violations of a defined set of coding standards.",
+            "homepage": "http://www.squizlabs.com/php-codesniffer",
+            "keywords": [
+                "phpcs",
+                "standards"
+            ],
+            "time": "2015-03-04 02:07:03"
         },
         {
             "name": "symfony/asset",
