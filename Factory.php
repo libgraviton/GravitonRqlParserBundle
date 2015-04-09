@@ -85,11 +85,13 @@ class Factory
     }
 
     /**
-     * Determines if the provided
+     * Determines if the provided class is a supported visitor
      *
-     * @param string $name
+     * @param string $name class name to check
      *
      * @throws VisitorNotSupportedException
+     *
+     * @return void
      */
     protected function supportsClass($name)
     {
@@ -103,9 +105,11 @@ class Factory
     /**
      * Determines that the provided class is a valid visitor.
      *
-     * @param string $name
+     * @param string $name class name to check
      *
      * @throws VisitorInterfaceNotImplementedException
+     *
+     * @return void
      */
     protected function classImplementsVisitorInterface($name)
     {
