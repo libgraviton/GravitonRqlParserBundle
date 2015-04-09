@@ -59,7 +59,7 @@ class Factory
         $visitorClass = $this->supportedVisitors[$lcName];
 
         switch ($lcName) {
-            case 'mongoodm' :
+            case 'mongoodm':
                 $visitor = new $visitorClass($queryBuilder);
                 break;
             default:

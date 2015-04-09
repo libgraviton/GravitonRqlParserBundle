@@ -4,7 +4,6 @@ namespace Graviton\RqlParserBundle\Tests;
 
 use lapistano\ProxyObject\ProxyBuilder;
 
-
 class FactoryTest extends \PHPUnit_Framework_TestCase
 {
 
@@ -35,7 +34,7 @@ class FactoryTest extends \PHPUnit_Framework_TestCase
         $factory->supportedVisitors['noop'] = '\Graviton\RqlParserBundle\Tests\Fixtures\NoopVisitor';
         $factory->parser = $parserDouble;
 
-        $this->assertInstanceOf('\Graviton\Rql\Visitor\VisitorInterface',$factory->create('NoOp', ''));
+        $this->assertInstanceOf('\Graviton\Rql\Visitor\VisitorInterface', $factory->create('NoOp', ''));
     }
 
     /**
