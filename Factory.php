@@ -25,6 +25,8 @@ class Factory
     );
 
     /**
+     * Provides an instance of the RQL Visitor.
+     *
      * @param string  $visitorName  Name of the visitor class
      * @param string  $rqlQuery     RQL formats string
      * @param Builder $queryBuilder Doctrine QueryBuilder
