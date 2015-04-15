@@ -20,3 +20,25 @@ Install it using composer.
 composer require graviton/rql-parser-bundle
 ```
 
+## How to use
+Despite the existence of unit tests, which are already examples how to use the factory, the following example shows it:
+
+```php
+[...]
+
+class foo {
+    public function __construct(Factory $rqlFactory) {
+        $this->rqlFactory = $rqlFactory;
+    }
+
+    public function searchSomething($query) {
+    
+        $visitor = $this->rqlFactory->create('myVisitor', $query);
+        
+        // do something with the visitor.
+    }
+}
+
+[...]
+
+```
