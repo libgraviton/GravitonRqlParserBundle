@@ -31,5 +31,14 @@
         "psr-4": {
             "Graviton\\RqlParserBundle\\": ""
         }
+    },
+
+    "scripts": {
+        "check": [
+            "./vendor/bin/phpcs --config-set installed_paths ../../libgraviton/codesniffer/CodeSniffer/Standards",
+            "./vendor/bin/phpcs --standard=PSR1 --ignore='*.css' --ignore='*.js' *.php Tests/",
+            "./vendor/bin/phpcs --standard=PSR2 --ignore='*.css' --ignore='*.js' *.php Tests/",
+            "./vendor/bin/phpcs --standard=ENTB --ignore='*.css' --ignore='*.js' *.php Tests/"
+        ]
     }
 }
