@@ -20,7 +20,7 @@
     "require-dev": {
         "symfony/framework-bundle": "~2.7",
         "lapistano/proxy-object": "~2.1",
-        "doctrine/mongodb-odm": "1.0.0-BETA11@dev",
+        "doctrine/mongodb-odm": "~1.0@beta",
         "jmikola/geojson": "~1.0",
         "phpunit/phpunit": "~4.7",
         "squizlabs/php_codesniffer": "~2.2",
