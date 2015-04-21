@@ -81,7 +81,7 @@ class Factory
     protected function initParser($query)
     {
         if (empty($this->parser)) {
-            $this->parser = new Parser($query);
+            $this->parser = Parser::createParser($query);
         }
         return $this->parser;
     }
