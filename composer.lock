@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "6366a2cf9b25e189348fdbac8f20e28c",
+    "hash": "bc83f709f1693a224647065867bf8a7d",
     "packages": [
         {
             "name": "doctrine/lexer",
@@ -1139,12 +1139,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/phpunit.git",
-                "reference": "bb1d9aa6680e8022957f949f83d16427ced30c61"
+                "reference": "43e4df74b8b1b05efac8f9c447f2fb15462a6a41"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/bb1d9aa6680e8022957f949f83d16427ced30c61",
-                "reference": "bb1d9aa6680e8022957f949f83d16427ced30c61",
+                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/43e4df74b8b1b05efac8f9c447f2fb15462a6a41",
+                "reference": "43e4df74b8b1b05efac8f9c447f2fb15462a6a41",
                 "shasum": ""
             },
             "require": {
@@ -1203,7 +1203,7 @@
                 "testing",
                 "xunit"
             ],
-            "time": "2015-04-16 04:24:36"
+            "time": "2015-04-18 08:00:12"
         },
         {
             "name": "phpunit/phpunit-mock-objects",
@@ -1671,16 +1671,16 @@
         },
         {
             "name": "squizlabs/php_codesniffer",
-            "version": "2.3.0",
+            "version": "2.3.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/squizlabs/PHP_CodeSniffer.git",
-                "reference": "5046b0e01c416fc2b06df961d0673c85bcdc896c"
+                "reference": "f3100143e94bbeeaa4f1cd7c6389c3733d3d1ce1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/squizlabs/PHP_CodeSniffer/zipball/5046b0e01c416fc2b06df961d0673c85bcdc896c",
-                "reference": "5046b0e01c416fc2b06df961d0673c85bcdc896c",
+                "url": "https://api.github.com/repos/squizlabs/PHP_CodeSniffer/zipball/f3100143e94bbeeaa4f1cd7c6389c3733d3d1ce1",
+                "reference": "f3100143e94bbeeaa4f1cd7c6389c3733d3d1ce1",
                 "shasum": ""
             },
             "require": {
@@ -1741,7 +1741,7 @@
                 "phpcs",
                 "standards"
             ],
-            "time": "2015-03-04 02:07:03"
+            "time": "2015-04-23 03:40:59"
         },
         {
             "name": "symfony/asset",
@@ -2770,7 +2770,7 @@
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {
-        "php": ">=5.5"
+        "php": "~5.4"
     },
     "platform-dev": []
 }

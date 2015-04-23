@@ -13,7 +13,7 @@
     "non-feature-branches": ["master", "develop", "support/*"],
 
     "require": {
-        "php": ">=5.5",
+        "php": "~5.4",
         "graviton/php-rql-parser": "~2.0@alpha"
     },
 
