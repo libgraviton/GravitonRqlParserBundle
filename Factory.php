@@ -64,7 +64,9 @@ class Factory
     public function create($visitorName, $rqlQuery, Builder $queryBuilder = null)
     {
         $visitor = $this->initVisitor($visitorName, $queryBuilder);
-        $parser = $this->initParser($visitor);
+        $this->parser = $this->initParser($visitor);
+
+        $this->parser->parse($rqlQuery);
 
         return $this->parser;
     }

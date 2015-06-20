@@ -26,7 +26,17 @@ class FactoryTest extends \PHPUnit_Framework_TestCase
             ->setMethods(array('parse', 'buildQuery'))
             ->getMock();
 
+        $tokenDouble = $this
+            ->getMockBuilder('Xiag\Rql\Parser\TokenStream')
+            ->disableOriginalConstructor()
+            ->getMock();
+
         $lexerDouble = $this->getMock('Xiag\Rql\Parser\Lexer');
+
+        $lexerDouble->expects($this->once())
+            ->method('tokenize')
+            ->willReturn($tokenDouble);
+
         $rqlParserDouble = $this
             ->getMockBuilder('Xiag\Rql\Parser\Parser')
             ->disableOriginalConstructor()
@@ -150,7 +160,7 @@ class FactoryTest extends \PHPUnit_Framework_TestCase
             ->setMethods(array('supportsClass'))
             ->getProxy();
 
-        $this->setExpectedException('\Graviton\Rql\Exceptions\VisitorNotSupportedException');
+        $this->setExpectedException('\Graviton\RqlParserBundle\Exceptions\VisitorNotSupportedException');
 
         $factory->supportsClass('NoSupported');
     }
@@ -181,7 +191,7 @@ class FactoryTest extends \PHPUnit_Framework_TestCase
 
         $factory->supportedVisitors['noop'] = '\stdClass';
 
-        $this->setExpectedException('\Graviton\Rql\Exceptions\VisitorInterfaceNotImplementedException');
+        $this->setExpectedException('\Graviton\RqlParserBundle\Exceptions\VisitorInterfaceNotImplementedException');
 
         $factory->classImplementsVisitorInterface('NoOp');
     }
