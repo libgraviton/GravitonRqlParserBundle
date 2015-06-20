@@ -122,7 +122,9 @@ class FactoryTest extends \PHPUnit_Framework_TestCase
             ->setMethods(array('initParser'))
             ->getProxy();
 
-        $this->assertInstanceOf('\Graviton\Rql\Parser', $factory->initParser(''));
+        $visitorDouble = $this->getMock('Graviton\Rql\Visitor\VisitorInterface');
+
+        $this->assertInstanceOf('\Graviton\Rql\Parser', $factory->initParser($visitorDouble));
     }
 
     /**
