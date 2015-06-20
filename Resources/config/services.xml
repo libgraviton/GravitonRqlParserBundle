@@ -4,9 +4,22 @@
            xsi:schemaLocation="http://symfony.com/schema/dic/services
         http://symfony.com/schema/dic/services/services-1.0.xsd"
         >
+    <parameters>
+        <parameter key="graviton.rql.factory.class">Graviton\RqlParserBundle\Factory</parameter>
+        <parameter key="graviton.rql.rql.lexer.class">Xiag\Rql\Parser\Lexer</parameter>
+        <parameter key="graviton.rql.rql.parser.class">Xiag\Rql\Parser\Parser</parameter>
+    </parameters>
     <services>
         <!-- Factory -->
-        <service id="graviton.rql.factory" class="Graviton\RqlParserBundle\Factory" />
+        <service id="graviton.rql.factory" class="Graviton\RqlParserBundle\Factory">
+            <argument type="service" id="graviton.rql.rql.lexer"/>
+            <argument type="service" id="graviton.rql.rql.parser"/>
+        </service>
 
+        <service id="graviton.rql.rql.lexer" class="%graviton.rql.rql.lexer.class%"/>
+
+        <service id="graviton.eql.rql.parser" class="%graviton.rql.rql.parser.class">
+            <factory class="%graviton.rql.rql.parser.class%" method="createDefault"/>
+        </service>
     </services>
 </container>
