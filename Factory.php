@@ -10,6 +10,7 @@ use Xiag\Rql\Parser\Parser as RqlParser;
 use Graviton\RqlParserBundle\Exceptions\VisitorInterfaceNotImplementedException;
 use Graviton\RqlParserBundle\Exceptions\VisitorNotSupportedException;
 use Graviton\Rql\Parser;
+use Graviton\Rql\Visitor\VisitorInterface;
 
 /**
  * @author  List of contributors <https://github.com/libgraviton/GravitonRqlParserBundle/graphs/contributors>
@@ -63,7 +64,7 @@ class Factory
     public function create($visitorName, $rqlQuery, Builder $queryBuilder = null)
     {
         $visitor = $this->initVisitor($visitorName, $queryBuilder);
-        $parser = $this->initParser($rqlQuery);
+        $parser = $this->initParser($visitor);
 
         return $this->parser;
     }
@@ -98,16 +99,17 @@ class Factory
     /**
      * Provides an instance of the Rql Parser.
      *
-     * @param string $query RQL formatted string.
+     * @param VisitorInterface $visitor rql visitor
      *
      * @return Parser
      */
-    protected function initParser($query)
+    protected function initParser(VisitorInterface $visitor)
     {
-        if (empty($this->parser)) {
-            $this->parser = Parser::createParser($query);
-        }
-        return $this->parser;
+        return new Parser(
+            $this->lexer,
+            $this->rqlParser,
+            $visitor
+        );
     }
 
     /**
