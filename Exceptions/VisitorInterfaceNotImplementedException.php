@@ -2,6 +2,7 @@
 /**
  * Exception handling the case the set Visitor does not follow mandatory demands.
  */
+
 namespace Graviton\RqlParserBundle\Exceptions;
 
 /**
