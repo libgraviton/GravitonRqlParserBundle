@@ -18,7 +18,7 @@
 
         <service id="graviton.rql.rql.lexer" class="%graviton.rql.rql.lexer.class%"/>
 
-        <service id="graviton.eql.rql.parser" class="%graviton.rql.rql.parser.class">
+        <service id="graviton.rql.rql.parser" class="%graviton.rql.rql.parser.class%">
             <factory class="%graviton.rql.rql.parser.class%" method="createDefault"/>
         </service>
     </services>
