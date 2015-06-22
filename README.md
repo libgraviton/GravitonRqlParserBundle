@@ -73,9 +73,9 @@ class foo {
 
     public function searchSomething($query) {
     
-        $visitor = $this->rqlFactory->create('myVisitor', $query);
+        $parser = $this->rqlFactory->create('myVisitor', $query);
         
-        // do something with the visitor.
+        // do something with the parser.
     }
 }
 
