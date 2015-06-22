@@ -5,8 +5,8 @@
 
 namespace Graviton\RqlParserBundle\Tests\Fixtures;
 
-use Graviton\Rql\AST\OperationInterface;
 use Graviton\Rql\Visitor\VisitorInterface;
+use Xiag\Rql\Parser\Query;
 
 /**
  * @author List of contributors <https://github.com/libgraviton/GravitonRqlParserBundle/graphs/contributors>
@@ -18,11 +18,11 @@ class NoopVisitor implements VisitorInterface
     /**
      * null visitor
      *
-     * @param OperationInterface $operation operation AST
+     * @param Query $query query AST
      *
      * @return void
      */
-    public function visit(OperationInterface $operation)
+    public function visit(Query $query)
     {
         return;
     }

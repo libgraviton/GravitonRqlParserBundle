@@ -21,32 +21,41 @@ class FactoryTest extends \PHPUnit_Framework_TestCase
      */
     public function testCreate()
     {
-        $operationDouble = $this->getMockBuilder('\Graviton\Rql\AST\OperationInterface')
+        $parserDouble = $this->getMockBuilder('\Graviton\Rql\Parser')
             ->disableOriginalConstructor()
-            ->setMethods(array('accept'))
-            ->getMockForAbstractClass();
-        $operationDouble
-            ->expects($this->once())
-            ->method('accept')
-            ->with($this->isInstanceOf('\Graviton\Rql\Visitor\VisitorInterface'));
-
-        $parserDouble = $this->getMockBuilder('\Graviton\Rql\Parse')
-            ->disableOriginalConstructor()
-            ->setMethods(array('getAST'))
+            ->setMethods(array('parse', 'buildQuery'))
             ->getMock();
-        $parserDouble
-            ->expects($this->once())
-            ->method('getAST')
-            ->willReturn($operationDouble);
+
+        $tokenDouble = $this
+            ->getMockBuilder('Xiag\Rql\Parser\TokenStream')
+            ->disableOriginalConstructor()
+            ->getMock();
+
+        $lexerDouble = $this->getMock('Xiag\Rql\Parser\Lexer');
+
+        $lexerDouble->expects($this->once())
+            ->method('tokenize')
+            ->willReturn($tokenDouble);
+
+        $rqlParserDouble = $this
+            ->getMockBuilder('Xiag\Rql\Parser\Parser')
+            ->disableOriginalConstructor()
+            ->getMock();
 
         $factory = $this->getProxyBuilder('\Graviton\RqlParserBundle\Factory')
+            ->setConstructorArgs(
+                [
+                    $lexerDouble,
+                    $rqlParserDouble
+                ]
+            )
             ->setProperties(array('supportedVisitors', 'parser'))
             ->getProxy();
 
         $factory->supportedVisitors['noop'] = '\Graviton\RqlParserBundle\Tests\Fixtures\NoopVisitor';
         $factory->parser = $parserDouble;
 
-        $this->assertInstanceOf('\Graviton\Rql\Visitor\VisitorInterface', $factory->create('NoOp', ''));
+        $this->assertInstanceOf('Graviton\Rql\Parser', $factory->create('NoOp', ''));
     }
 
     /**
@@ -62,7 +71,19 @@ class FactoryTest extends \PHPUnit_Framework_TestCase
             ->disableOriginalConstructor()
             ->getMock();
 
+        $lexerDouble = $this->getMock('Xiag\Rql\Parser\Lexer');
+        $rqlParserDouble = $this
+            ->getMockBuilder('Xiag\Rql\Parser\Parser')
+            ->disableOriginalConstructor()
+            ->getMock();
+
         $factory = $this->getProxyBuilder('\Graviton\RqlParserBundle\Factory')
+            ->setConstructorArgs(
+                [
+                    $lexerDouble,
+                    $rqlParserDouble
+                ]
+            )
             ->setProperties(array('supportedVisitors'))
             ->setMethods(array('initVisitor'))
             ->getProxy();
@@ -95,11 +116,25 @@ class FactoryTest extends \PHPUnit_Framework_TestCase
      */
     public function testInitParser()
     {
+        $lexerDouble = $this->getMock('Xiag\Rql\Parser\Lexer');
+        $rqlParserDouble = $this
+            ->getMockBuilder('Xiag\Rql\Parser\Parser')
+            ->disableOriginalConstructor()
+            ->getMock();
+
         $factory = $this->getProxyBuilder('\Graviton\RqlParserBundle\Factory')
+            ->setConstructorArgs(
+                [
+                    $lexerDouble,
+                    $rqlParserDouble
+                ]
+            )
             ->setMethods(array('initParser'))
             ->getProxy();
 
-        $this->assertInstanceOf('\Graviton\Rql\Parser', $factory->initParser(''));
+        $visitorDouble = $this->getMock('Graviton\Rql\Visitor\VisitorInterface');
+
+        $this->assertInstanceOf('\Graviton\Rql\Parser', $factory->initParser($visitorDouble));
     }
 
     /**
@@ -109,11 +144,23 @@ class FactoryTest extends \PHPUnit_Framework_TestCase
      */
     public function testSupportsClass()
     {
+        $lexerDouble = $this->getMock('Xiag\Rql\Parser\Lexer');
+        $rqlParserDouble = $this
+            ->getMockBuilder('Xiag\Rql\Parser\Parser')
+            ->disableOriginalConstructor()
+            ->getMock();
+
         $factory = $this->getProxyBuilder('\Graviton\RqlParserBundle\Factory')
+            ->setConstructorArgs(
+                [
+                    $lexerDouble,
+                    $rqlParserDouble
+                ]
+            )
             ->setMethods(array('supportsClass'))
             ->getProxy();
 
-        $this->setExpectedException('\Graviton\Rql\Exceptions\VisitorNotSupportedException');
+        $this->setExpectedException('\Graviton\RqlParserBundle\Exceptions\VisitorNotSupportedException');
 
         $factory->supportsClass('NoSupported');
     }
@@ -125,14 +172,26 @@ class FactoryTest extends \PHPUnit_Framework_TestCase
      */
     public function testClassImplementsVisitorInterface()
     {
+        $lexerDouble = $this->getMock('Xiag\Rql\Parser\Lexer');
+        $rqlParserDouble = $this
+            ->getMockBuilder('Xiag\Rql\Parser\Parser')
+            ->disableOriginalConstructor()
+            ->getMock();
+
         $factory = $this->getProxyBuilder('\Graviton\RqlParserBundle\Factory')
+            ->setConstructorArgs(
+                [
+                    $lexerDouble,
+                    $rqlParserDouble
+                ]
+            )
             ->setProperties(array('supportedVisitors'))
             ->setMethods(array('classImplementsVisitorInterface'))
             ->getProxy();
 
         $factory->supportedVisitors['noop'] = '\stdClass';
 
-        $this->setExpectedException('\Graviton\Rql\Exceptions\VisitorInterfaceNotImplementedException');
+        $this->setExpectedException('\Graviton\RqlParserBundle\Exceptions\VisitorInterfaceNotImplementedException');
 
         $factory->classImplementsVisitorInterface('NoOp');
     }
