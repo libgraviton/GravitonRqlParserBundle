@@ -19,8 +19,8 @@ use Graviton\Rql\Visitor\VisitorInterface;
  */
 class Factory
 {
-    /** 
-     * @var Parser 
+    /**
+     * @var Parser
      */
     protected $parser;
 
@@ -34,15 +34,15 @@ class Factory
      */
     private $rqlParser;
 
-    /** 
-     * @var array Set of supported Visitors 
+    /**
+     * @var array Set of supported Visitors
      */
     protected $supportedVisitors = array(
         'mongoodm' => '\Graviton\Rql\Visitor\MongoOdm',
     );
 
     /**
-     * @param Lexer     $lexer  lexer
+     * @param Lexer     $lexer     lexer
      * @param RqlParser $rqlParser parser
      */
     public function __construct(Lexer $lexer, RqlParser $rqlParser)
