@@ -5,8 +5,10 @@
 namespace Graviton\RqlParserBundle;
 
 use Doctrine\ODM\MongoDB\Query\Builder;
+use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Xiag\Rql\Parser\Lexer;
 use Xiag\Rql\Parser\Parser as RqlParser;
+use Xiag\Rql\Parser\Exception\SyntaxErrorException;
 use Graviton\RqlParserBundle\Exceptions\VisitorInterfaceNotImplementedException;
 use Graviton\RqlParserBundle\Exceptions\VisitorNotSupportedException;
 use Graviton\Rql\Parser;
@@ -66,7 +68,11 @@ class Factory
         $visitor = $this->initVisitor($visitorName, $queryBuilder);
         $this->parser = $this->initParser($visitor);
 
-        $this->parser->parse($rqlQuery);
+        try {
+            $this->parser->parse($rqlQuery);
+        } catch (SyntaxErrorException $e) {
+            throw new BadRequestHttpException('syntax error in rql query', $e);
+        }
 
         return $this->parser;
     }

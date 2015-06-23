@@ -6,6 +6,7 @@
 namespace Graviton\RqlParserBundle\Tests;
 
 use lapistano\ProxyObject\ProxyBuilder;
+use Xiag\Rql\Parser\Exception\SyntaxErrorException;
 
 /**
  * @author List of contributors <https://github.com/libgraviton/GravitonRqlParserBundle/graphs/contributors>
@@ -196,6 +197,56 @@ class FactoryTest extends \PHPUnit_Framework_TestCase
         $factory->classImplementsVisitorInterface('NoOp');
     }
 
+    /**
+     * validate that syntax errors are rethrown as bar request exceptions
+     *
+     * @return void
+     */
+    public function testCreateThrowsExceptionOnInvalidRql()
+    {
+        $parserDouble = $this->getMockBuilder('\Graviton\Rql\Parser')
+            ->disableOriginalConstructor()
+            ->setMethods(array('parse', 'buildQuery'))
+            ->getMock();
+
+        $tokenDouble = $this
+            ->getMockBuilder('Xiag\Rql\Parser\TokenStream')
+            ->disableOriginalConstructor()
+            ->getMock();
+
+        $lexerDouble = $this->getMock('Xiag\Rql\Parser\Lexer');
+
+        $lexerDouble->expects($this->once())
+            ->method('tokenize')
+            ->willReturn($tokenDouble);
+
+        $rqlParserDouble = $this
+            ->getMockBuilder('Xiag\Rql\Parser\Parser')
+            ->disableOriginalConstructor()
+            ->getMock();
+
+        $rqlParserDouble
+            ->expects($this->once())
+            ->method('parse')
+            ->will($this->throwException(new SyntaxErrorException));
+
+        $factory = $this->getProxyBuilder('\Graviton\RqlParserBundle\Factory')
+            ->setConstructorArgs(
+                [
+                    $lexerDouble,
+                    $rqlParserDouble
+                ]
+            )
+            ->setProperties(array('supportedVisitors', 'parser'))
+            ->getProxy();
+
+        $factory->supportedVisitors['noop'] = '\Graviton\RqlParserBundle\Tests\Fixtures\NoopVisitor';
+        $factory->parser = $parserDouble;
+
+        $this->setExpectedException('Symfony\Component\HttpKernel\Exception\BadRequestHttpException');
+
+        $factory->create('NoOp', 'invalide=rql&inout(=];');
+    }
 
     /**
      * @param string $class name of class to proxy
