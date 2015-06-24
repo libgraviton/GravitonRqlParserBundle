@@ -71,7 +71,13 @@ class Factory
         try {
             $this->parser->parse($rqlQuery);
         } catch (SyntaxErrorException $e) {
-            throw new BadRequestHttpException('syntax error in rql query', $e);
+            throw new BadRequestHttpException(
+                sprintf(
+                    'syntax error in rql: %s',
+                    $e->getMessage()
+                ),
+                $e
+            );
         }
 
         return $this->parser;
