@@ -14,13 +14,13 @@
 
     "require": {
         "php": "~5.4",
-        "symfony/http-kernel": "~2.7",
+        "symfony/http-kernel": "~2.6",
         "graviton/php-rql-parser": "~2.0@alpha"
     },
 
     "require-dev": {
         "symfony/framework-bundle": "~2.7",
-        "lapistano/proxy-object": "~2.1",
+        "lapistano/proxy-object": "dev-master",
         "doctrine/mongodb-odm": "~1.0@beta",
         "jmikola/geojson": "~1.0",
         "phpunit/phpunit": "~4.7",
