@@ -10,12 +10,17 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Loader\XmlFileLoader;
 use Symfony\Component\Config\FileLocator;
 
+/**
+ * @author  List of contributors <https://github.com/libgraviton/GravitonRqlParserBundle/graphs/contributors>
+ * @license http://opensource.org/licenses/gpl-license.php GNU Public License
+ * @link    http://swisscom.ch
+ */
 class GravitonRqlParserExtension extends Extension
 {
     /**
      * load services into di
      *
-     * @param array            $config    config
+     * @param array            $configs   config
      * @param ContainerBuilder $container containerbuilder
      *
      * @return void
@@ -24,7 +29,7 @@ class GravitonRqlParserExtension extends Extension
     {
         $loader = new XmlFileLoader(
             $container,
-             new FileLocator(__DIR__.'/../Resources/config')
+            new FileLocator(__DIR__.'/../Resources/config')
         );
         $loader->load('services.xml');
     }

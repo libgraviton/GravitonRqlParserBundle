@@ -14,7 +14,7 @@
     >
   <testsuites>
     <testsuite name="rql-parser-bundle Test Suite">
-      <directory>Tests/</directory>
+      <directory>test/</directory>
     </testsuite>
   </testsuites>
   <filter>
