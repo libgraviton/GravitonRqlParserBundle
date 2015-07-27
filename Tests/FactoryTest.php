@@ -6,7 +6,6 @@
 namespace Graviton\RqlParserBundle\Tests;
 
 use lapistano\ProxyObject\ProxyBuilder;
-use Xiag\Rql\Parser\Exception\SyntaxErrorException;
 
 /**
  * @author List of contributors <https://github.com/libgraviton/GravitonRqlParserBundle/graphs/contributors>
@@ -77,12 +76,6 @@ class FactoryTest extends \PHPUnit_Framework_TestCase
      */
     public function testSupportsClass()
     {
-        $lexerDouble = $this->getMock('Xiag\Rql\Parser\Lexer');
-        $rqlParserDouble = $this
-            ->getMockBuilder('Xiag\Rql\Parser\Parser')
-            ->disableOriginalConstructor()
-            ->getMock();
-
         $factory = $this->getProxyBuilder('\Graviton\RqlParserBundle\Factory')
             ->setMethods(array('supportsClass'))
             ->getProxy();
@@ -99,12 +92,6 @@ class FactoryTest extends \PHPUnit_Framework_TestCase
      */
     public function testClassImplementsVisitorInterface()
     {
-        $lexerDouble = $this->getMock('Xiag\Rql\Parser\Lexer');
-        $rqlParserDouble = $this
-            ->getMockBuilder('Xiag\Rql\Parser\Parser')
-            ->disableOriginalConstructor()
-            ->getMock();
-
         $factory = $this->getProxyBuilder('\Graviton\RqlParserBundle\Factory')
             ->setProperties(array('supportedVisitors'))
             ->setMethods(array('classImplementsVisitorInterface'))
