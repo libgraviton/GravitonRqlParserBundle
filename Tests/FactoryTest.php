@@ -22,41 +22,13 @@ class FactoryTest extends \PHPUnit_Framework_TestCase
      */
     public function testCreate()
     {
-        $parserDouble = $this->getMockBuilder('\Graviton\Rql\Parser')
-            ->disableOriginalConstructor()
-            ->setMethods(array('parse', 'buildQuery'))
-            ->getMock();
-
-        $tokenDouble = $this
-            ->getMockBuilder('Xiag\Rql\Parser\TokenStream')
-            ->disableOriginalConstructor()
-            ->getMock();
-
-        $lexerDouble = $this->getMock('Xiag\Rql\Parser\Lexer');
-
-        $lexerDouble->expects($this->once())
-            ->method('tokenize')
-            ->willReturn($tokenDouble);
-
-        $rqlParserDouble = $this
-            ->getMockBuilder('Xiag\Rql\Parser\Parser')
-            ->disableOriginalConstructor()
-            ->getMock();
-
         $factory = $this->getProxyBuilder('\Graviton\RqlParserBundle\Factory')
-            ->setConstructorArgs(
-                [
-                    $lexerDouble,
-                    $rqlParserDouble
-                ]
-            )
-            ->setProperties(array('supportedVisitors', 'parser'))
+            ->setProperties(array('supportedVisitors'))
             ->getProxy();
 
         $factory->supportedVisitors['noop'] = '\Graviton\RqlParserBundle\Tests\Fixtures\NoopVisitor';
-        $factory->parser = $parserDouble;
 
-        $this->assertInstanceOf('Graviton\Rql\Parser', $factory->create('NoOp', ''));
+        $this->assertInstanceOf('Graviton\Rql\Visitor\VisitorInterface', $factory->create('NoOp'));
     }
 
     /**
@@ -72,19 +44,7 @@ class FactoryTest extends \PHPUnit_Framework_TestCase
             ->disableOriginalConstructor()
             ->getMock();
 
-        $lexerDouble = $this->getMock('Xiag\Rql\Parser\Lexer');
-        $rqlParserDouble = $this
-            ->getMockBuilder('Xiag\Rql\Parser\Parser')
-            ->disableOriginalConstructor()
-            ->getMock();
-
         $factory = $this->getProxyBuilder('\Graviton\RqlParserBundle\Factory')
-            ->setConstructorArgs(
-                [
-                    $lexerDouble,
-                    $rqlParserDouble
-                ]
-            )
             ->setProperties(array('supportedVisitors'))
             ->setMethods(array('initVisitor'))
             ->getProxy();
@@ -111,34 +71,6 @@ class FactoryTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * validate parser initialization
-     *
-     * @return void
-     */
-    public function testInitParser()
-    {
-        $lexerDouble = $this->getMock('Xiag\Rql\Parser\Lexer');
-        $rqlParserDouble = $this
-            ->getMockBuilder('Xiag\Rql\Parser\Parser')
-            ->disableOriginalConstructor()
-            ->getMock();
-
-        $factory = $this->getProxyBuilder('\Graviton\RqlParserBundle\Factory')
-            ->setConstructorArgs(
-                [
-                    $lexerDouble,
-                    $rqlParserDouble
-                ]
-            )
-            ->setMethods(array('initParser'))
-            ->getProxy();
-
-        $visitorDouble = $this->getMock('Graviton\Rql\Visitor\VisitorInterface');
-
-        $this->assertInstanceOf('\Graviton\Rql\Parser', $factory->initParser($visitorDouble));
-    }
-
-    /**
      * validate supportsClass method
      *
      * @return void
@@ -152,12 +84,6 @@ class FactoryTest extends \PHPUnit_Framework_TestCase
             ->getMock();
 
         $factory = $this->getProxyBuilder('\Graviton\RqlParserBundle\Factory')
-            ->setConstructorArgs(
-                [
-                    $lexerDouble,
-                    $rqlParserDouble
-                ]
-            )
             ->setMethods(array('supportsClass'))
             ->getProxy();
 
@@ -180,12 +106,6 @@ class FactoryTest extends \PHPUnit_Framework_TestCase
             ->getMock();
 
         $factory = $this->getProxyBuilder('\Graviton\RqlParserBundle\Factory')
-            ->setConstructorArgs(
-                [
-                    $lexerDouble,
-                    $rqlParserDouble
-                ]
-            )
             ->setProperties(array('supportedVisitors'))
             ->setMethods(array('classImplementsVisitorInterface'))
             ->getProxy();
@@ -195,57 +115,6 @@ class FactoryTest extends \PHPUnit_Framework_TestCase
         $this->setExpectedException('\Graviton\RqlParserBundle\Exceptions\VisitorInterfaceNotImplementedException');
 
         $factory->classImplementsVisitorInterface('NoOp');
-    }
-
-    /**
-     * validate that syntax errors are rethrown as bar request exceptions
-     *
-     * @return void
-     */
-    public function testCreateThrowsExceptionOnInvalidRql()
-    {
-        $parserDouble = $this->getMockBuilder('\Graviton\Rql\Parser')
-            ->disableOriginalConstructor()
-            ->setMethods(array('parse', 'buildQuery'))
-            ->getMock();
-
-        $tokenDouble = $this
-            ->getMockBuilder('Xiag\Rql\Parser\TokenStream')
-            ->disableOriginalConstructor()
-            ->getMock();
-
-        $lexerDouble = $this->getMock('Xiag\Rql\Parser\Lexer');
-
-        $lexerDouble->expects($this->once())
-            ->method('tokenize')
-            ->willReturn($tokenDouble);
-
-        $rqlParserDouble = $this
-            ->getMockBuilder('Xiag\Rql\Parser\Parser')
-            ->disableOriginalConstructor()
-            ->getMock();
-
-        $rqlParserDouble
-            ->expects($this->once())
-            ->method('parse')
-            ->will($this->throwException(new SyntaxErrorException));
-
-        $factory = $this->getProxyBuilder('\Graviton\RqlParserBundle\Factory')
-            ->setConstructorArgs(
-                [
-                    $lexerDouble,
-                    $rqlParserDouble
-                ]
-            )
-            ->setProperties(array('supportedVisitors', 'parser'))
-            ->getProxy();
-
-        $factory->supportedVisitors['noop'] = '\Graviton\RqlParserBundle\Tests\Fixtures\NoopVisitor';
-        $factory->parser = $parserDouble;
-
-        $this->setExpectedException('Symfony\Component\HttpKernel\Exception\BadRequestHttpException');
-
-        $factory->create('NoOp', 'invalide=rql&inout(=];');
     }
 
     /**

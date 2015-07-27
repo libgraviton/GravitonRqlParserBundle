@@ -5,13 +5,8 @@
 namespace Graviton\RqlParserBundle;
 
 use Doctrine\ODM\MongoDB\Query\Builder;
-use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
-use Xiag\Rql\Parser\Lexer;
-use Xiag\Rql\Parser\Parser as RqlParser;
-use Xiag\Rql\Parser\Exception\SyntaxErrorException;
 use Graviton\RqlParserBundle\Exceptions\VisitorInterfaceNotImplementedException;
 use Graviton\RqlParserBundle\Exceptions\VisitorNotSupportedException;
-use Graviton\Rql\Parser;
 use Graviton\Rql\Visitor\VisitorInterface;
 
 /**
@@ -22,21 +17,6 @@ use Graviton\Rql\Visitor\VisitorInterface;
 class Factory
 {
     /**
-     * @var Parser
-     */
-    protected $parser;
-
-    /**
-     * @var Lexer
-     */
-    private $lexer;
-
-    /**
-     * @var RqlParser
-     */
-    private $rqlParser;
-
-    /**
      * @var array Set of supported Visitors
      */
     protected $supportedVisitors = array(
@@ -44,43 +24,16 @@ class Factory
     );
 
     /**
-     * @param Lexer     $lexer     lexer
-     * @param RqlParser $rqlParser parser
-     */
-    public function __construct(Lexer $lexer, RqlParser $rqlParser)
-    {
-        $this->lexer = $lexer;
-        $this->rqlParser = $rqlParser;
-    }
-
-
-    /**
      * Provides an instance of the RQL Visitor.
      *
      * @param string  $visitorName  Name of the visitor class
-     * @param string  $rqlQuery     RQL formats string
      * @param Builder $queryBuilder Doctrine QueryBuilder
      *
-     * @return Parser
+     * @return Query
      */
-    public function create($visitorName, $rqlQuery, Builder $queryBuilder = null)
+    public function create($visitorName, Builder $queryBuilder = null)
     {
-        $visitor = $this->initVisitor($visitorName, $queryBuilder);
-        $this->parser = $this->initParser($visitor);
-
-        try {
-            $this->parser->parse($rqlQuery);
-        } catch (SyntaxErrorException $e) {
-            throw new BadRequestHttpException(
-                sprintf(
-                    'syntax error in rql: %s',
-                    $e->getMessage()
-                ),
-                $e
-            );
-        }
-
-        return $this->parser;
+        return $this->initVisitor($visitorName, $queryBuilder);
     }
 
     /**
@@ -108,22 +61,6 @@ class Factory
         }
 
         return $visitor;
-    }
-
-    /**
-     * Provides an instance of the Rql Parser.
-     *
-     * @param VisitorInterface $visitor rql visitor
-     *
-     * @return Parser
-     */
-    protected function initParser(VisitorInterface $visitor)
-    {
-        return new Parser(
-            $this->lexer,
-            $this->rqlParser,
-            $visitor
-        );
     }
 
     /**
