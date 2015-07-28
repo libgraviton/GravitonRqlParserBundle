@@ -106,7 +106,7 @@ class RequestListenerTest extends \PHPUnit_Framework_TestCase
             ->with('hasRql', true);
         $attributesDouble->expects($this->at(1))
             ->method('set')
-            ->with('rawRql', 'eq(foo,b%20a%20r)');
+            ->with('rawRql', $query);
         $attributesDouble->expects($this->at(2))
             ->method('set')
             ->with('rqlQuery', $this->isInstanceOf('Xiag\Rql\Parser\Query'));
@@ -133,6 +133,10 @@ class RequestListenerTest extends \PHPUnit_Framework_TestCase
         return [
             'simple query string' => ['q=eq(foo,b%20a%20r)', 'eq(foo,b%20a%20r)'],
             'string with paging stuff' => ['page=1&q=eq(foo,b%20a%20r)&perPage=20', 'eq(foo,b%20a%20r)'],
+            'test with $ref in name' => [
+                'perPage=1&page=2&q=eq(name.%24ref,http%3A%2F%2Fexmaple.com)',
+                'eq(name.%24ref,http%3A%2F%2Fexmaple.com)'
+            ],
         ];
     }
 }
