@@ -16,6 +16,8 @@ class RequestListenerTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * check if nothing gets done when query is empty
+     *
+     * @return void
      */
     public function testWillBehaveOnEmptyQuery()
     {
@@ -57,6 +59,8 @@ class RequestListenerTest extends \PHPUnit_Framework_TestCase
 
     /**
      * test if queries get handled properly
+     *
+     * @return void
      */
     public function testWillParseQuery()
     {
