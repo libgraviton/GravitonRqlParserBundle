@@ -17,6 +17,16 @@ use Xiag\Rql\Parser\Parser;
 class RequestListener
 {
     /**
+     * @var Lexer
+     */
+    private $lexer;
+
+    /**
+     * @var Parser
+     */
+    private $parser;
+
+    /**
      * @var string
      */
     private $queryKey;
@@ -36,14 +46,13 @@ class RequestListener
     /**
      * Validate the json input to prevent errors in the following components
      *
-     * @param RestEvent $event Event
+     * @param GetResponseEvent $event Event
      *
      * @return void|null
      */
     public function onKernelRequest(GetResponseEvent $event)
     {
         $request = $event->getRequest();
-        $filter = null;
 
         // grab unencoded version of rql extract q arg
         // has to grab the query direclty from _SERVER so it does not get unecoded by php beforehand
@@ -52,7 +61,7 @@ class RequestListener
             $filter = array_filter(
                 explode('&', $_SERVER['QUERY_STRING']),
                 function ($param) {
-                    return (substr($param, 0, 2) == $this->queryKey.'=');
+                    return (substr($param, 0, 2) == $this->queryKey . '=');
                 }
             );
             $filter = substr(reset($filter), 2);

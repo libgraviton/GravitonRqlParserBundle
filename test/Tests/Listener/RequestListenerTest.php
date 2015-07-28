@@ -2,7 +2,6 @@
 /**
  * validate listener
  */
-
 namespace Graviton\RqlParserBundle\Tests\Listener;
 
 use Graviton\RqlParserBundle\Listener\RequestListener;
