@@ -2,6 +2,7 @@
 /**
  * validate listener
  */
+
 namespace Graviton\RqlParserBundle\Tests\Listener;
 
 use Graviton\RqlParserBundle\Listener\RequestListener;
@@ -59,10 +60,17 @@ class RequestListenerTest extends \PHPUnit_Framework_TestCase
     /**
      * test if queries get handled properly
      *
+     * @dataProvider willParseQueryData
+     *
+     * @param string $raw   raw query string as would be in _SERVER
+     * @param string $query what we should be extracting
+     *
      * @return void
      */
-    public function testWillParseQuery()
+    public function testWillParseQuery($raw, $query)
     {
+        $_SERVER['QUERY_STRING'] = $raw;
+
         $lexerDouble = $this->getMock('Xiag\Rql\Parser\Lexer');
         $lexerDouble->expects($this->any())
             ->method('tokenize')
@@ -89,7 +97,7 @@ class RequestListenerTest extends \PHPUnit_Framework_TestCase
         $queryDouble->expects($this->once())
             ->method('get')
             ->with('q')
-            ->willReturn('eq(foo,bar)');
+            ->willReturn(rawurldecode($query));
         $requestDouble->query = $queryDouble;
 
         $attributesDouble = $this->getMock('Symfony\Component\HttpFoundation\ParameterBag');
@@ -98,7 +106,7 @@ class RequestListenerTest extends \PHPUnit_Framework_TestCase
             ->with('hasRql', true);
         $attributesDouble->expects($this->at(1))
             ->method('set')
-            ->with('rawRql', 'eq(foo,bar)');
+            ->with('rawRql', 'eq(foo,b%20a%20r)');
         $attributesDouble->expects($this->at(2))
             ->method('set')
             ->with('rqlQuery', $this->isInstanceOf('Xiag\Rql\Parser\Query'));
@@ -115,5 +123,16 @@ class RequestListenerTest extends \PHPUnit_Framework_TestCase
         );
 
         $sut->onKernelRequest($eventDouble);
+    }
+
+    /**
+     * @return array[]
+     */
+    function willParseQueryData()
+    {
+        return [
+            'simple query string' => ['q=eq(foo,b%20a%20r)', 'eq(foo,b%20a%20r)'],
+            'string with paging stuff' => ['page=1&q=eq(foo,b%20a%20r)&perPage=20', 'eq(foo,b%20a%20r)'],
+        ];
     }
 }
