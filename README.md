@@ -66,16 +66,15 @@ Despite the existence of unit tests, which are already examples how to use the f
 ```php
 [...]
 
-class foo {
-    public function __construct(Factory $rqlFactory) {
-        $this->rqlFactory = $rqlFactory;
-    }
+class FooController {
 
-    public function searchSomething($query) {
+    public function searchSomething(Request $request) {
     
-        $parser = $this->rqlFactory->create('myVisitor', $query);
-        
-        // do something with the parser.
+        if ($request->attributes('hasRql', false)) {
+            $query = $request->attributes->get('rqlQuery');
+
+            // do something with the query.
+        }
     }
 }
 
