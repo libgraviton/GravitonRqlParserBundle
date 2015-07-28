@@ -128,7 +128,7 @@ class RequestListenerTest extends \PHPUnit_Framework_TestCase
     /**
      * @return array[]
      */
-    function willParseQueryData()
+    public function willParseQueryData()
     {
         return [
             'simple query string' => ['q=eq(foo,b%20a%20r)', 'eq(foo,b%20a%20r)'],
