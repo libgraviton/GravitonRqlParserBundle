@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<container xmlns="http://symfony.com/schema/dic/services"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services
+        http://symfony.com/schema/dic/services/services-1.0.xsd"
+        >
+    <parameters>
+        <parameter key="graviton.rql.lexer.class">Xiag\Rql\Parser\Lexer</parameter>
+        <parameter key="graviton.rql.parser.class">Xiag\Rql\Parser\Parser</parameter>
+        <parameter key="graviton.rql.visitor_factory.class">Graviton\RqlParserBundle\Factory</parameter>
+        <parameter key="graviton.rql.listener.request.class">Graviton\RqlParserBundle\Listener\RequestListener</parameter>
+    </parameters>
+    <services>
+        <service id="graviton.rql.lexer" class="%graviton.rql.lexer.class%"/>
+        <service id="graviton.rql.parser" class="%graviton.rql.parser.class%">
+            <factory class="%graviton.rql.parser.class%" method="createDefault"/>
+        </service>
+        <service id="graviton.rql.visitor_factory" class="%graviton.rql.visitor_factory.class%"/>
+        <service id="graviton.rql.listener.request" class="%graviton.rql.listener.request.class%">
+            <argument type="service" id="graviton.rql.lexer"/>
+            <argument type="service" id="graviton.rql.parser"/>
+            <argument>q</argument>
+            <tag name="kernel.event_listener" event="kernel.request" method="onKernelRequest" />
+        </service>
+    </services>
+</container>
