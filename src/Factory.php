@@ -8,7 +8,6 @@ use Doctrine\ODM\MongoDB\Query\Builder;
 use Graviton\RqlParserBundle\Exceptions\VisitorInterfaceNotImplementedException;
 use Graviton\RqlParserBundle\Exceptions\VisitorNotSupportedException;
 use Graviton\Rql\Visitor\VisitorInterface;
-use Symfony\Component\EventDispatcher\EventDispatcher;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 /**
