@@ -15,7 +15,11 @@
         <service id="graviton.rql.parser" class="%graviton.rql.parser.class%">
             <factory class="%graviton.rql.parser.class%" method="createDefault"/>
         </service>
-        <service id="graviton.rql.visitor_factory" class="%graviton.rql.visitor_factory.class%"/>
+        <service id="graviton.rql.visitor_factory" class="%graviton.rql.visitor_factory.class%">
+            <call method="setDispatcher">
+                <argument type="service" id="event_dispatcher" />
+            </call>
+        </service>
         <service id="graviton.rql.listener.request" class="%graviton.rql.listener.request.class%">
             <argument type="service" id="graviton.rql.lexer"/>
             <argument type="service" id="graviton.rql.parser"/>
