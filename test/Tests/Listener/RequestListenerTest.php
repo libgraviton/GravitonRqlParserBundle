@@ -32,12 +32,12 @@ class RequestListenerTest extends \PHPUnit_Framework_TestCase
 
         $requestDouble = $this->getMock('Symfony\Component\HttpFoundation\Request');
 
-        $queryDouble = $this->getMock('Symfony\Component\HttpFoundation\ParameterBag');
-        $queryDouble->expects($this->once())
+        $serverDouble = $this->getMock('Symfony\Component\HttpFoundation\ServerBag');
+        $serverDouble->expects($this->once())
             ->method('get')
-            ->with('q')
-            ->willReturn('');
-        $requestDouble->query = $queryDouble;
+            ->with('QUERY_STRING')
+            ->willReturn(null);
+        $requestDouble->server = $serverDouble;
 
         $attributesDouble = $this->getMock('Symfony\Component\HttpFoundation\ParameterBag');
         $attributesDouble->expects($this->never())
@@ -69,8 +69,6 @@ class RequestListenerTest extends \PHPUnit_Framework_TestCase
      */
     public function testWillParseQuery($raw, $query)
     {
-        $_SERVER['QUERY_STRING'] = $raw;
-
         $lexerDouble = $this->getMock('Xiag\Rql\Parser\Lexer');
         $lexerDouble->expects($this->any())
             ->method('tokenize')
@@ -93,12 +91,12 @@ class RequestListenerTest extends \PHPUnit_Framework_TestCase
 
         $requestDouble = $this->getMock('Symfony\Component\HttpFoundation\Request');
 
-        $queryDouble = $this->getMock('Symfony\Component\HttpFoundation\ParameterBag');
-        $queryDouble->expects($this->once())
+        $serverDouble = $this->getMock('Symfony\Component\HttpFoundation\ServerBag');
+        $serverDouble->expects($this->exactly(2))
             ->method('get')
-            ->with('q')
-            ->willReturn(rawurldecode($query));
-        $requestDouble->query = $queryDouble;
+            ->with('QUERY_STRING')
+            ->willReturn($raw);
+        $requestDouble->server = $serverDouble;
 
         $attributesDouble = $this->getMock('Symfony\Component\HttpFoundation\ParameterBag');
         $attributesDouble->expects($this->at(0))
