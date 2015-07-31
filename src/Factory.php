@@ -8,6 +8,8 @@ use Doctrine\ODM\MongoDB\Query\Builder;
 use Graviton\RqlParserBundle\Exceptions\VisitorInterfaceNotImplementedException;
 use Graviton\RqlParserBundle\Exceptions\VisitorNotSupportedException;
 use Graviton\Rql\Visitor\VisitorInterface;
+use Symfony\Component\EventDispatcher\EventDispatcher;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 /**
  * @author  List of contributors <https://github.com/libgraviton/GravitonRqlParserBundle/graphs/contributors>
@@ -16,12 +18,33 @@ use Graviton\Rql\Visitor\VisitorInterface;
  */
 class Factory
 {
+
+    /**
+     * @var EventDispatcherInterface
+     */
+    private $dispatcher = null;
+
     /**
      * @var array Set of supported Visitors
      */
     protected $supportedVisitors = array(
         'mongoodm' => '\Graviton\Rql\Visitor\MongoOdm',
     );
+
+    /**
+     * inject an optional event dispatcher
+     *
+     * If injected this is used to dispatch some lifecycle events that you may use
+     * to hook into query visitation
+     *
+     * @param EventDispatcherInterface $dispatcher event dispatcher to dispatch events on
+     *
+     * @return void
+     */
+    public function setDispatcher(EventDispatcherInterface $dispatcher)
+    {
+        $this->dispatcher = $dispatcher;
+    }
 
     /**
      * Provides an instance of the RQL Visitor.
@@ -58,6 +81,10 @@ class Factory
                 break;
             default:
                 $visitor = new $visitorClass();
+        }
+
+        if ($this->dispatcher && is_callable(array($visitor, 'setDispatcher'))) {
+            $visitor->setDispatcher($this->dispatcher);
         }
 
         return $visitor;
