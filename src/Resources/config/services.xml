@@ -7,7 +7,7 @@
     <parameters>
         <parameter key="graviton.rql.lexer.class">Xiag\Rql\Parser\Lexer</parameter>
         <parameter key="graviton.rql.parser.class">Xiag\Rql\Parser\Parser</parameter>
-        <parameter key="graviton.rql.visitor_factory.class">Graviton\RqlParserBundle\Factory</parameter>
+        <parameter key="graviton.rql.visitor.mongodb.class">Graviton\Rql\Visitor\MongoOdm</parameter>
         <parameter key="graviton.rql.listener.request.class">Graviton\RqlParserBundle\Listener\RequestListener</parameter>
     </parameters>
     <services>
@@ -15,7 +15,10 @@
         <service id="graviton.rql.parser" class="%graviton.rql.parser.class%">
             <factory class="%graviton.rql.parser.class%" method="createDefault"/>
         </service>
-        <service id="graviton.rql.visitor_factory" class="%graviton.rql.visitor_factory.class%"/>
+
+        <service id="graviton.rql.visitor.default" alias="graviton.rql.visitor.mongodb"/>
+        <service id="graviton.rql.visitor.mongodb" class="%graviton.rql.visitor.mongodb.class%"/>
+
         <service id="graviton.rql.listener.request" class="%graviton.rql.listener.request.class%">
             <argument type="service" id="graviton.rql.lexer"/>
             <argument type="service" id="graviton.rql.parser"/>
