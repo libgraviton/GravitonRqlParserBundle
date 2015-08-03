@@ -17,7 +17,11 @@
         </service>
 
         <service id="graviton.rql.visitor.default" alias="graviton.rql.visitor.mongodb"/>
-        <service id="graviton.rql.visitor.mongodb" class="%graviton.rql.visitor.mongodb.class%"/>
+        <service id="graviton.rql.visitor.mongodb" class="%graviton.rql.visitor.mongodb.class%">
+            <call method="setDispatcher">
+                <argument type="service" id="event_dispatcher"/>
+            </call>
+        </service>
 
         <service id="graviton.rql.listener.request" class="%graviton.rql.listener.request.class%">
             <argument type="service" id="graviton.rql.lexer"/>
