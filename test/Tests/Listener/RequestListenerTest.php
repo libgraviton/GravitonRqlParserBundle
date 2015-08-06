@@ -136,7 +136,7 @@ class RequestListenerTest extends \PHPUnit_Framework_TestCase
                 'eq(name.%24ref,http%3A%2F%2Fexmaple.com)'
             ],
             'multiple rql statements' => [
-                'q=(a=2&(b<3|c>4)&like(e,123))&select(a,b)&sort(+a,-b)&limit(1,2)',
+                '(a=2&(b<3|c>4)&like(e,123))&select(a,b)&sort(+a,-b)&limit(1,2)',
                 '(a=2&(b<3|c>4)&like(e,123))&select(a,b)&sort(+a,-b)&limit(1,2)',
             ],
         ];
