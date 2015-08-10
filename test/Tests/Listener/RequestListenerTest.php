@@ -50,8 +50,7 @@ class RequestListenerTest extends \PHPUnit_Framework_TestCase
 
         $sut = new RequestListener(
             $lexerDouble,
-            $parserDouble,
-            'q'
+            $parserDouble
         );
 
         $sut->onKernelRequest($eventDouble);
@@ -116,8 +115,7 @@ class RequestListenerTest extends \PHPUnit_Framework_TestCase
 
         $sut = new RequestListener(
             $lexerDouble,
-            $parserDouble,
-            'q'
+            $parserDouble
         );
 
         $sut->onKernelRequest($eventDouble);
