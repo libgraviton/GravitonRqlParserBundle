@@ -27,20 +27,13 @@ class RequestListener
     private $parser;
 
     /**
-     * @var string
+     * @param Lexer  $lexer  rql lexer
+     * @param Parser $parser rql parser
      */
-    private $queryKey;
-
-    /**
-     * @param Lexer  $lexer    rql lexer
-     * @param Parser $parser   rql parser
-     * @param string $queryKey name of query attribute to use
-     */
-    public function __construct(Lexer $lexer, Parser $parser, $queryKey)
+    public function __construct(Lexer $lexer, Parser $parser)
     {
         $this->lexer = $lexer;
         $this->parser = $parser;
-        $this->queryKey = $queryKey;
     }
 
     /**
@@ -56,16 +49,7 @@ class RequestListener
 
         // grab unencoded version of rql extract q arg
         // has to grab the query direclty from _SERVER so it does not get unecoded by php beforehand
-        $filter = null;
-        if ($request->server->get('QUERY_STRING') !== null) {
-            $filter = array_filter(
-                explode('&', $request->server->get('QUERY_STRING')),
-                function ($param) {
-                    return (substr($param, 0, 2) == $this->queryKey . '=');
-                }
-            );
-            $filter = substr(reset($filter), 2);
-        }
+        $filter = $request->server->get('QUERY_STRING');
         if (empty($filter)) {
             return;
         }
