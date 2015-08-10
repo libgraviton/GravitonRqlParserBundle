@@ -129,9 +129,6 @@ class RequestListenerTest extends \PHPUnit_Framework_TestCase
             'simple query string' => [
                 'eq(foo,b%20a%20r)'
             ],
-            'string with paging stuff' => [
-                'eq(foo,b%20a%20r)'
-            ],
             'test with $ref in name' => [
                 'eq(name.%24ref,http%3A%2F%2Fexmaple.com)'
             ],
