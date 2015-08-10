@@ -27,20 +27,13 @@ class RequestListener
     private $parser;
 
     /**
-     * @var string
+     * @param Lexer  $lexer  rql lexer
+     * @param Parser $parser rql parser
      */
-    private $queryKey;
-
-    /**
-     * @param Lexer  $lexer    rql lexer
-     * @param Parser $parser   rql parser
-     * @param string $queryKey name of query attribute to use
-     */
-    public function __construct(Lexer $lexer, Parser $parser, $queryKey)
+    public function __construct(Lexer $lexer, Parser $parser)
     {
         $this->lexer = $lexer;
         $this->parser = $parser;
-        $this->queryKey = $queryKey;
     }
 
     /**

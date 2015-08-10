@@ -26,7 +26,6 @@
         <service id="graviton.rql.listener.request" class="%graviton.rql.listener.request.class%">
             <argument type="service" id="graviton.rql.lexer"/>
             <argument type="service" id="graviton.rql.parser"/>
-            <argument>q</argument>
             <tag name="kernel.event_listener" event="kernel.request" method="onKernelRequest" />
         </service>
     </services>
