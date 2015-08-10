@@ -27,8 +27,8 @@ class RequestListener
     private $parser;
 
     /**
-     * @param Lexer  $lexer    rql lexer
-     * @param Parser $parser   rql parser
+     * @param Lexer  $lexer  rql lexer
+     * @param Parser $parser rql parser
      */
     public function __construct(Lexer $lexer, Parser $parser)
     {
