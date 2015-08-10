@@ -92,7 +92,7 @@ class RequestListenerTest extends \PHPUnit_Framework_TestCase
         $requestDouble = $this->getMock('Symfony\Component\HttpFoundation\Request');
 
         $serverDouble = $this->getMock('Symfony\Component\HttpFoundation\ServerBag');
-        $serverDouble->expects($this->exactly(2))
+        $serverDouble->expects($this->once())
             ->method('get')
             ->with('QUERY_STRING')
             ->willReturn($raw);
@@ -129,11 +129,15 @@ class RequestListenerTest extends \PHPUnit_Framework_TestCase
     public function willParseQueryData()
     {
         return [
-            'simple query string' => ['q=eq(foo,b%20a%20r)', 'eq(foo,b%20a%20r)'],
-            'string with paging stuff' => ['page=1&q=eq(foo,b%20a%20r)&perPage=20', 'eq(foo,b%20a%20r)'],
+            'simple query string' => ['eq(foo,b%20a%20r)', 'eq(foo,b%20a%20r)'],
+            'string with paging stuff' => ['eq(foo,b%20a%20r)', 'eq(foo,b%20a%20r)'],
             'test with $ref in name' => [
-                'perPage=1&page=2&q=eq(name.%24ref,http%3A%2F%2Fexmaple.com)',
+                'eq(name.%24ref,http%3A%2F%2Fexmaple.com)',
                 'eq(name.%24ref,http%3A%2F%2Fexmaple.com)'
+            ],
+            'multiple rql statements' => [
+                '(a=2&(b<3|c>4)&like(e,123))&select(a,b)&sort(+a,-b)&limit(1,2)',
+                '(a=2&(b<3|c>4)&like(e,123))&select(a,b)&sort(+a,-b)&limit(1,2)',
             ],
         ];
     }

@@ -56,16 +56,7 @@ class RequestListener
 
         // grab unencoded version of rql extract q arg
         // has to grab the query direclty from _SERVER so it does not get unecoded by php beforehand
-        $filter = null;
-        if ($request->server->get('QUERY_STRING') !== null) {
-            $filter = array_filter(
-                explode('&', $request->server->get('QUERY_STRING')),
-                function ($param) {
-                    return (substr($param, 0, 2) == $this->queryKey . '=');
-                }
-            );
-            $filter = substr(reset($filter), 2);
-        }
+        $filter = $request->server->get('QUERY_STRING');
         if (empty($filter)) {
             return;
         }
