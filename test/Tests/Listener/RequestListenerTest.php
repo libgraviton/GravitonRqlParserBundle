@@ -61,12 +61,11 @@ class RequestListenerTest extends \PHPUnit_Framework_TestCase
      *
      * @dataProvider willParseQueryData
      *
-     * @param string $raw   raw query string as would be in _SERVER
-     * @param string $query what we should be extracting
+     * @param string $query that we should be extracting
      *
      * @return void
      */
-    public function testWillParseQuery($raw, $query)
+    public function testWillParseQuery($query)
     {
         $lexerDouble = $this->getMock('Xiag\Rql\Parser\Lexer');
         $lexerDouble->expects($this->any())
@@ -94,7 +93,7 @@ class RequestListenerTest extends \PHPUnit_Framework_TestCase
         $serverDouble->expects($this->once())
             ->method('get')
             ->with('QUERY_STRING')
-            ->willReturn($raw);
+            ->willReturn($query);
         $requestDouble->server = $serverDouble;
 
         $attributesDouble = $this->getMock('Symfony\Component\HttpFoundation\ParameterBag');
@@ -127,15 +126,17 @@ class RequestListenerTest extends \PHPUnit_Framework_TestCase
     public function willParseQueryData()
     {
         return [
-            'simple query string' => ['eq(foo,b%20a%20r)', 'eq(foo,b%20a%20r)'],
-            'string with paging stuff' => ['eq(foo,b%20a%20r)', 'eq(foo,b%20a%20r)'],
+            'simple query string' => [
+                'eq(foo,b%20a%20r)'
+            ],
+            'string with paging stuff' => [
+                'eq(foo,b%20a%20r)'
+            ],
             'test with $ref in name' => [
-                'eq(name.%24ref,http%3A%2F%2Fexmaple.com)',
                 'eq(name.%24ref,http%3A%2F%2Fexmaple.com)'
             ],
             'multiple rql statements' => [
-                '(a=2&(b<3|c>4)&like(e,123))&select(a,b)&sort(+a,-b)&limit(1,2)',
-                '(a=2&(b<3|c>4)&like(e,123))&select(a,b)&sort(+a,-b)&limit(1,2)',
+                '(a=2&(b<3|c>4)&like(e,123))&select(a,b)&sort(+a,-b)&limit(1,2)'
             ],
         ];
     }
