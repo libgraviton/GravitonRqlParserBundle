@@ -14,7 +14,7 @@ use Xiag\Rql\Parser\Parser;
  * @license  http://opensource.org/licenses/gpl-license.php GNU Public License
  * @link     http://swisscom.ch
  */
-class RequestListener
+class RequestListener implements RequestListenerInterface
 {
     /**
      * @var Lexer
@@ -37,11 +37,11 @@ class RequestListener
     }
 
     /**
-     * Validate the json input to prevent errors in the following components
+     * Process RQL query
      *
      * @param GetResponseEvent $event Event
      *
-     * @return void|null
+     * @return void
      */
     public function onKernelRequest(GetResponseEvent $event)
     {
