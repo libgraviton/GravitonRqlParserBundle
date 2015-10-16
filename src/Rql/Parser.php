@@ -5,6 +5,7 @@
 
 namespace Graviton\RqlParserBundle\Rql;
 
+use Graviton\RqlParserBundle\Rql\TokenParser\ElemMatchTokenParser;
 use Xiag\Rql\Parser\Parser as BaseParser;
 use Xiag\Rql\Parser\TokenParserInterface;
 use Xiag\Rql\Parser\TypeCaster;
@@ -71,6 +72,7 @@ class Parser extends BaseParser
             ->addTokenParser(new TokenParser\Query\Fiql\ScalarOperator\GtTokenParser())
             ->addTokenParser(new TokenParser\Query\Fiql\ScalarOperator\LeTokenParser())
             ->addTokenParser(new TokenParser\Query\Fiql\ScalarOperator\GeTokenParser())
-            ->addTokenParser(new TokenParser\Query\Fiql\ScalarOperator\LikeTokenParser());
+            ->addTokenParser(new TokenParser\Query\Fiql\ScalarOperator\LikeTokenParser())
+            ->addTokenParser(new ElemMatchTokenParser($queryTokenParser));
     }
 }
