@@ -24,7 +24,7 @@ class MongoOdm extends BaseVisitor
      */
     public function __construct()
     {
-        $this->internalMap['Xiag\Rql\Parser\Node\Query\ScalarOperator\LikeNode'] = 'visitElemMatch';
+        $this->internalMap['Graviton\RqlParserBundle\Rql\Node\ElemMatchNode'] = 'visitElemMatch';
     }
 
     /**
