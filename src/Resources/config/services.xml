@@ -6,7 +6,7 @@
         >
     <parameters>
         <parameter key="graviton.rql.lexer.class">Xiag\Rql\Parser\Lexer</parameter>
-        <parameter key="graviton.rql.parser.class">Xiag\Rql\Parser\Parser</parameter>
+        <parameter key="graviton.rql.parser.class">Graviton\RqlParserBundle\Rql\Parser</parameter>
         <parameter key="graviton.rql.visitor.mongodb.class">Graviton\Rql\Visitor\MongoOdm</parameter>
         <parameter key="graviton.rql.listener.request.class">Graviton\RqlParserBundle\Listener\RequestListener</parameter>
     </parameters>
