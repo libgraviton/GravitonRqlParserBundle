@@ -612,7 +612,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/mrix/php-rql-parser/zipball/fec7842798cde577fe5092b7f8630020b7fb0e7f",
+                "url": "https://api.github.com/repos/mrix/php-rql-parser/zipball/b9ae43b31be298420548e8ef54c13109f29ebbbb",
                 "reference": "fec7842798cde577fe5092b7f8630020b7fb0e7f",
                 "shasum": ""
             },
@@ -1022,16 +1022,16 @@
         },
         {
             "name": "xiag/rql-parser",
-            "version": "v1.0.0",
+            "version": "v1.0.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/xiag-ag/rql-parser.git",
-                "reference": "4bd8e0e84f8caaa444a16f9a3f9b0cf7abaaed43"
+                "reference": "92e8245ea52b170998d6b3be538de20d4cddd2a3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/xiag-ag/rql-parser/zipball/4bd8e0e84f8caaa444a16f9a3f9b0cf7abaaed43",
-                "reference": "4bd8e0e84f8caaa444a16f9a3f9b0cf7abaaed43",
+                "url": "https://api.github.com/repos/xiag-ag/rql-parser/zipball/92e8245ea52b170998d6b3be538de20d4cddd2a3",
+                "reference": "92e8245ea52b170998d6b3be538de20d4cddd2a3",
                 "shasum": ""
             },
             "require": {
@@ -1061,7 +1061,7 @@
                 "rest",
                 "rql"
             ],
-            "time": "2015-06-10 08:10:12"
+            "time": "2015-08-21 11:19:07"
         }
     ],
     "packages-dev": [
