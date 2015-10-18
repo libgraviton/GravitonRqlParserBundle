@@ -6,6 +6,7 @@
 namespace Graviton\RqlParserBundle\Rql\Node;
 
 use Xiag\Rql\Parser\Node\AbstractQueryNode;
+use Xiag\Rql\Parser\Node\Query\AbstractComparisonOperatorNode;
 
 /**
  * elemMatch() node
@@ -14,16 +15,12 @@ use Xiag\Rql\Parser\Node\AbstractQueryNode;
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @link    http://swisscom.ch
  */
-class ElemMatchNode extends AbstractQueryNode
+class ElemMatchNode extends AbstractComparisonOperatorNode
 {
-    /**
-     * @var string
-     */
-    private $field;
     /**
      * @var AbstractQueryNode
      */
-    private $query;
+    protected $query;
 
     /**
      * Constructor
@@ -48,16 +45,6 @@ class ElemMatchNode extends AbstractQueryNode
     }
 
     /**
-     * Get field
-     *
-     * @return string
-     */
-    public function getField()
-    {
-        return $this->field;
-    }
-
-    /**
      * Get query
      *
      * @return AbstractQueryNode
@@ -65,5 +52,16 @@ class ElemMatchNode extends AbstractQueryNode
     public function getQuery()
     {
         return $this->query;
+    }
+
+    /**
+     * Set query
+     *
+     * @param AbstractQueryNode $query Query
+     * @return void
+     */
+    public function setQuery(AbstractQueryNode $query)
+    {
+        $this->query = $query;
     }
 }
