@@ -608,12 +608,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/mrix/php-rql-parser.git",
-                "reference": "844bc02bcf51670a7c63e8c75b01d6b5029c3db7"
+                "reference": "edda063a3dc905b2e0c770254df4c8f350bf912b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/mrix/php-rql-parser/zipball/844bc02bcf51670a7c63e8c75b01d6b5029c3db7",
-                "reference": "844bc02bcf51670a7c63e8c75b01d6b5029c3db7",
+                "url": "https://api.github.com/repos/mrix/php-rql-parser/zipball/edda063a3dc905b2e0c770254df4c8f350bf912b",
+                "reference": "edda063a3dc905b2e0c770254df4c8f350bf912b",
                 "shasum": ""
             },
             "require": {
@@ -672,7 +672,7 @@
             "support": {
                 "source": "https://github.com/mrix/php-rql-parser/tree/47970-add-elemmatch-operator"
             },
-            "time": "2015-10-19 06:03:49"
+            "time": "2015-10-19 09:07:22"
         },
         {
             "name": "psr/log",
