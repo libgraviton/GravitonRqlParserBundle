@@ -604,16 +604,16 @@
         },
         {
             "name": "graviton/php-rql-parser",
-            "version": "dev-47970-add-elemmatch-operator",
+            "version": "v2.0.0-alpha15",
             "source": {
                 "type": "git",
-                "url": "https://github.com/mrix/php-rql-parser.git",
-                "reference": "edda063a3dc905b2e0c770254df4c8f350bf912b"
+                "url": "https://github.com/libgraviton/php-rql-parser.git",
+                "reference": "5c5f4d18698e91d81b81ec1312a1d9abdf5b2925"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/mrix/php-rql-parser/zipball/edda063a3dc905b2e0c770254df4c8f350bf912b",
-                "reference": "edda063a3dc905b2e0c770254df4c8f350bf912b",
+                "url": "https://api.github.com/repos/libgraviton/php-rql-parser/zipball/5c5f4d18698e91d81b81ec1312a1d9abdf5b2925",
+                "reference": "5c5f4d18698e91d81b81ec1312a1d9abdf5b2925",
                 "shasum": ""
             },
             "require": {
@@ -635,19 +635,7 @@
                     "Graviton\\Rql\\": "src/"
                 }
             },
-            "autoload-dev": {
-                "psr-4": {
-                    "Graviton\\Rql\\": "test/"
-                }
-            },
-            "scripts": {
-                "check": [
-                    "./vendor/bin/phpcs --config-set installed_paths ../../libgraviton/codesniffer/CodeSniffer/Standards",
-                    "./vendor/bin/phpcs --standard=PSR1 --ignore='*.css' --ignore='*.js' src/ test/",
-                    "./vendor/bin/phpcs --standard=PSR2 --ignore='*.css' --ignore='*.js' src/ test/",
-                    "./vendor/bin/phpcs --standard=ENTB --ignore='*.css' --ignore='*.js' src/ test/"
-                ]
-            },
+            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "GPL"
             ],
@@ -669,10 +657,7 @@
                 "rest",
                 "rql"
             ],
-            "support": {
-                "source": "https://github.com/mrix/php-rql-parser/tree/47970-add-elemmatch-operator"
-            },
-            "time": "2015-10-19 09:07:22"
+            "time": "2015-10-20 10:09:06"
         },
         {
             "name": "psr/log",
@@ -2714,7 +2699,7 @@
     "aliases": [],
     "minimum-stability": "dev",
     "stability-flags": {
-        "graviton/php-rql-parser": 20,
+        "graviton/php-rql-parser": 15,
         "doctrine/mongodb-odm": 10
     },
     "prefer-stable": true,
