@@ -15,7 +15,7 @@
     "require": {
         "php": "~5.4",
         "symfony/http-kernel": "~2.6",
-        "graviton/php-rql-parser": "~2.0@alpha,>=2.0.0-alpha15"
+        "graviton/php-rql-parser": ">=2.0.0-alpha15"
     },
 
     "require-dev": {
