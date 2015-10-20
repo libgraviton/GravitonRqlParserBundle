@@ -2699,7 +2699,6 @@
     "aliases": [],
     "minimum-stability": "dev",
     "stability-flags": {
-        "graviton/php-rql-parser": 15,
         "doctrine/mongodb-odm": 10
     },
     "prefer-stable": true,
