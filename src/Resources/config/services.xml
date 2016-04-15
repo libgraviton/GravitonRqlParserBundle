@@ -5,7 +5,7 @@
         http://symfony.com/schema/dic/services/services-1.0.xsd"
         >
     <parameters>
-        <parameter key="graviton.rql.lexer.class">Xiag\Rql\Parser\Lexer</parameter>
+        <parameter key="graviton.rql.lexer.class">Graviton\Rql\Lexer</parameter>
         <parameter key="graviton.rql.parser.class">Graviton\Rql\Parser</parameter>
         <parameter key="graviton.rql.visitor.mongodb.class">Graviton\Rql\Visitor\MongoOdm</parameter>
         <parameter key="graviton.rql.listener.request.class">Graviton\RqlParserBundle\Listener\RequestListener</parameter>
