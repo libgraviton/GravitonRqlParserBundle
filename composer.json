@@ -13,13 +13,13 @@
     "non-feature-branches": ["master", "develop", "support/*"],
 
     "require": {
-        "php": "~5.4",
-        "symfony/http-kernel": "~2.6",
+        "php": "~5.6",
+        "symfony/http-kernel": "~2.6 || ^3.0",
         "graviton/php-rql-parser": ">=2.0.0-alpha15"
     },
 
     "require-dev": {
-        "symfony/framework-bundle": "~2.7",
+        "symfony/framework-bundle": "~2.7 || ^3.0",
         "doctrine/mongodb-odm": "~1.0@beta",
         "phpunit/phpunit": "~4.7",
         "squizlabs/php_codesniffer": "~2.2",
