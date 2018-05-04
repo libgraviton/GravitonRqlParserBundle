@@ -6,13 +6,14 @@
 namespace Graviton\RqlParserBundle\Tests\Listener;
 
 use Graviton\RqlParserBundle\Listener\RequestListener;
+use PHPUnit\Framework\TestCase;
 
 /**
  * @author List of contributors <https://github.com/libgraviton/GravitonRqlParserBundle/graphs/contributors>
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @link http://swisscom.ch
  */
-class RequestListenerTest extends \PHPUnit_Framework_TestCase
+class RequestListenerTest extends TestCase
 {
     /**
      * check if nothing gets done when query is empty
@@ -21,7 +22,7 @@ class RequestListenerTest extends \PHPUnit_Framework_TestCase
      */
     public function testWillBehaveOnEmptyQuery()
     {
-        $lexerDouble = $this->getMock('Xiag\Rql\Parser\Lexer');
+        $lexerDouble = $this->getMockBuilder('Xiag\Rql\Parser\Lexer')->getMock();
         $parserDouble = $this->getMockBuilder('Xiag\Rql\Parser\Parser')
             ->disableOriginalConstructor()
             ->getMock();
@@ -30,16 +31,16 @@ class RequestListenerTest extends \PHPUnit_Framework_TestCase
             ->disableOriginalConstructor()
             ->getMock();
 
-        $requestDouble = $this->getMock('Symfony\Component\HttpFoundation\Request');
+        $requestDouble = $this->getMockBuilder('Symfony\Component\HttpFoundation\Request')->getMock();
 
-        $serverDouble = $this->getMock('Symfony\Component\HttpFoundation\ServerBag');
+        $serverDouble = $this->getMockBuilder('Symfony\Component\HttpFoundation\ServerBag')->getMock();
         $serverDouble->expects($this->once())
             ->method('get')
             ->with('QUERY_STRING')
             ->willReturn(null);
         $requestDouble->server = $serverDouble;
 
-        $attributesDouble = $this->getMock('Symfony\Component\HttpFoundation\ParameterBag');
+        $attributesDouble = $this->getMockBuilder('Symfony\Component\HttpFoundation\ParameterBag')->getMock();
         $attributesDouble->expects($this->never())
             ->method('set');
         $requestDouble->attributes = $attributesDouble;
@@ -67,7 +68,7 @@ class RequestListenerTest extends \PHPUnit_Framework_TestCase
      */
     public function testWillParseQuery($query)
     {
-        $lexerDouble = $this->getMock('Xiag\Rql\Parser\Lexer');
+        $lexerDouble = $this->getMockBuilder('Xiag\Rql\Parser\Lexer')->getMock();
         $lexerDouble->expects($this->any())
             ->method('tokenize')
             ->willReturn(
@@ -81,22 +82,22 @@ class RequestListenerTest extends \PHPUnit_Framework_TestCase
             ->getMock();
         $parserDouble->expects($this->once())
             ->method('parse')
-            ->willReturn($this->getMock('Xiag\Rql\Parser\Query'));
+            ->willReturn($this->getMockBuilder('Xiag\Rql\Parser\Query')->getMock());
 
         $eventDouble = $this->getMockBuilder('Symfony\Component\HttpKernel\Event\GetResponseEvent')
             ->disableOriginalConstructor()
             ->getMock();
 
-        $requestDouble = $this->getMock('Symfony\Component\HttpFoundation\Request');
+        $requestDouble = $this->getMockBuilder('Symfony\Component\HttpFoundation\Request')->getMock();
 
-        $serverDouble = $this->getMock('Symfony\Component\HttpFoundation\ServerBag');
+        $serverDouble = $this->getMockBuilder('Symfony\Component\HttpFoundation\ServerBag')->getMock();
         $serverDouble->expects($this->once())
             ->method('get')
             ->with('QUERY_STRING')
             ->willReturn($query);
         $requestDouble->server = $serverDouble;
 
-        $attributesDouble = $this->getMock('Symfony\Component\HttpFoundation\ParameterBag');
+        $attributesDouble = $this->getMockBuilder('Symfony\Component\HttpFoundation\ParameterBag')->getMock();
         $attributesDouble->expects($this->at(0))
             ->method('set')
             ->with('hasRql', true);
