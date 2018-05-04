@@ -2,7 +2,10 @@ sudo: false
 language: php
 services: mongodb
 before_script:
-  - echo "extension = mongo.so" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini
+  - pecl channel-update pecl.php.net
+  - sleep 5
+  - printf "\n" | pecl install -f mongodb-1.4.3
+  - echo "extension = mongodb.so" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini
   - composer install --no-interaction
   - wget https://scrutinizer-ci.com/ocular.phar
 php:
