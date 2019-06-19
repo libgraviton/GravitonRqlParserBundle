@@ -11,10 +11,15 @@
         <parameter key="graviton.rql.listener.request.class">Graviton\RqlParserBundle\Listener\RequestListener</parameter>
     </parameters>
     <services>
-        <service id="graviton.rql.lexer" class="%graviton.rql.lexer.class%"/>
-        <service id="graviton.rql.parser" class="%graviton.rql.parser.class%">
-            <factory class="%graviton.rql.parser.class%" method="createDefault"/>
+        <service id="graviton.rql.sublexer" class="%graviton.rql.lexer.class%">
+            <factory class="%graviton.rql.lexer.class%" method="createSubLexer"/>
         </service>
+
+        <service id="graviton.rql.lexer" class="%graviton.rql.lexer.class%">
+            <argument type="service" id="graviton.rql.sublexer"/>
+        </service>
+
+        <service id="graviton.rql.parser" class="%graviton.rql.parser.class%"/>
 
         <service id="graviton.rql.visitor.default" alias="graviton.rql.visitor.mongodb"/>
         <service id="graviton.rql.visitor.mongodb" class="%graviton.rql.visitor.mongodb.class%">
