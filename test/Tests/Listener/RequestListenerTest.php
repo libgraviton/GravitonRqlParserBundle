@@ -22,8 +22,10 @@ class RequestListenerTest extends TestCase
      */
     public function testWillBehaveOnEmptyQuery()
     {
-        $lexerDouble = $this->getMockBuilder('Xiag\Rql\Parser\Lexer')->getMock();
-        $parserDouble = $this->getMockBuilder('Xiag\Rql\Parser\Parser')
+        $lexerDouble = $this->getMockBuilder('Graviton\RqlParser\Lexer')
+            ->disableOriginalConstructor()
+            ->getMock();
+        $parserDouble = $this->getMockBuilder('Graviton\RqlParser\Parser')
             ->disableOriginalConstructor()
             ->getMock();
 
@@ -68,21 +70,23 @@ class RequestListenerTest extends TestCase
      */
     public function testWillParseQuery($query)
     {
-        $lexerDouble = $this->getMockBuilder('Xiag\Rql\Parser\Lexer')->getMock();
+        $lexerDouble = $this->getMockBuilder('Graviton\RqlParser\Lexer')
+            ->disableOriginalConstructor()
+            ->getMock();
         $lexerDouble->expects($this->any())
             ->method('tokenize')
             ->willReturn(
-                $this->getMockBuilder('Xiag\Rql\Parser\TokenStream')
+                $this->getMockBuilder('Graviton\RqlParser\TokenStream')
                     ->disableOriginalConstructor()
                     ->getMock()
             );
 
-        $parserDouble = $this->getMockBuilder('Xiag\Rql\Parser\Parser')
+        $parserDouble = $this->getMockBuilder('Graviton\RqlParser\Parser')
             ->disableOriginalConstructor()
             ->getMock();
         $parserDouble->expects($this->once())
             ->method('parse')
-            ->willReturn($this->getMockBuilder('Xiag\Rql\Parser\Query')->getMock());
+            ->willReturn($this->getMockBuilder('Graviton\RqlParser\Query')->getMock());
 
         $eventDouble = $this->getMockBuilder('Symfony\Component\HttpKernel\Event\GetResponseEvent')
             ->disableOriginalConstructor()
@@ -106,7 +110,7 @@ class RequestListenerTest extends TestCase
             ->with('rawRql', $query);
         $attributesDouble->expects($this->at(2))
             ->method('set')
-            ->with('rqlQuery', $this->isInstanceOf('Xiag\Rql\Parser\Query'));
+            ->with('rqlQuery', $this->isInstanceOf('Graviton\RqlParser\Query'));
         $requestDouble->attributes = $attributesDouble;
 
         $eventDouble->expects($this->once())
