@@ -6,7 +6,7 @@
 namespace Graviton\RqlParserBundle\Tests\Fixtures;
 
 use Graviton\Rql\Visitor\VisitorInterface;
-use Xiag\Rql\Parser\Query;
+use Graviton\RqlParser\Query;
 
 /**
  * @author List of contributors <https://github.com/libgraviton/GravitonRqlParserBundle/graphs/contributors>

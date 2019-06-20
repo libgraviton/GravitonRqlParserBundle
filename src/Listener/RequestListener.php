@@ -6,8 +6,8 @@
 namespace Graviton\RqlParserBundle\Listener;
 
 use Symfony\Component\HttpKernel\Event\GetResponseEvent;
-use Xiag\Rql\Parser\Lexer;
-use Xiag\Rql\Parser\Parser;
+use Graviton\RqlParser\Lexer;
+use Graviton\RqlParser\Parser;
 
 /**
  * @author  List of contributors <https://github.com/libgraviton/GravitonRqlParserBundle/graphs/contributors>
