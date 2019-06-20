@@ -22,7 +22,9 @@ class RequestListenerTest extends TestCase
      */
     public function testWillBehaveOnEmptyQuery()
     {
-        $lexerDouble = $this->getMockBuilder('Graviton\RqlParser\Lexer')->getMock();
+        $lexerDouble = $this->getMockBuilder('Graviton\RqlParser\Lexer')
+            ->disableOriginalConstructor()
+            ->getMock();
         $parserDouble = $this->getMockBuilder('Graviton\RqlParser\Parser')
             ->disableOriginalConstructor()
             ->getMock();
@@ -68,7 +70,9 @@ class RequestListenerTest extends TestCase
      */
     public function testWillParseQuery($query)
     {
-        $lexerDouble = $this->getMockBuilder('Graviton\RqlParser\Lexer')->getMock();
+        $lexerDouble = $this->getMockBuilder('Graviton\RqlParser\Lexer')
+            ->disableOriginalConstructor()
+            ->getMock();
         $lexerDouble->expects($this->any())
             ->method('tokenize')
             ->willReturn(
