@@ -27,6 +27,11 @@ class RequestListener implements RequestListenerInterface
     private $parser;
 
     /**
+     * @var string
+     */
+    private $headerName = 'x-rql-query';
+
+    /**
      * @param Lexer  $lexer  rql lexer
      * @param Parser $parser rql parser
      */
@@ -47,12 +52,16 @@ class RequestListener implements RequestListenerInterface
     {
         $request = $event->getRequest();
 
-        // grab unencoded version of rql extract q arg
-        // has to grab the query direclty from _SERVER so it does not get unecoded by php beforehand
-        $filter = $request->server->get('QUERY_STRING');
+        // grab rql query either from header or query string
+        $filter = $request->headers->get(
+            $this->headerName,
+            $request->server->get('QUERY_STRING', '')
+        );
+
         if (empty($filter)) {
             return;
         }
+
         $request->attributes->set('hasRql', true);
         $request->attributes->set('rawRql', $filter);
         $request->attributes->set('rqlQuery', $this->parser->parse($this->lexer->tokenize($filter)));
