@@ -14,11 +14,7 @@
 
     "require": {
         "symfony/http-kernel": "^3.0 || ^4.0",
-        "graviton/php-rql-parser": "^3.5.0 || ^4.0"
-    },
-
-    "config": {
-        "platform": {"ext-mongo": "1.6.1"}
+        "graviton/php-rql-parser": "^5.0"
     },
 
     "require-dev": {
