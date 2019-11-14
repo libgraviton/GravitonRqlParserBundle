@@ -5,7 +5,7 @@
 
 namespace Graviton\RqlParserBundle\Listener;
 
-use Symfony\Component\HttpKernel\Event\GetResponseEvent;
+use Symfony\Component\HttpKernel\Event\RequestEvent;
 
 /**
  * @author  List of contributors <https://github.com/libgraviton/GravitonRqlParserBundle/graphs/contributors>
@@ -17,9 +17,9 @@ interface RequestListenerInterface
     /**
      * Process RQL query
      *
-     * @param GetResponseEvent $event Event
+     * @param RequestEvent $event Event
      *
      * @return void
      */
-    public function onKernelRequest(GetResponseEvent $event);
+    public function onKernelRequest(RequestEvent $event);
 }
