@@ -13,7 +13,7 @@
     "non-feature-branches": ["master", "develop", "support/*"],
 
     "require": {
-        "symfony/symfony": "~4|~5",
+        "symfony/symfony": ">=6.0.0",
         "graviton/php-rql-parser": "^5.0"
     },
 
