@@ -9,7 +9,7 @@ class Configuration implements ConfigurationInterface
 {
     public function getConfigTreeBuilder() : TreeBuilder
     {
-        $treeBuilder = new TreeBuilder('graviton_rqlparser');
+        $treeBuilder = new TreeBuilder('graviton_rql_parser');
         $treeBuilder->getRootNode()
                         ->children()
                             ->booleanNode('activate_listener')->defaultTrue()->end()
