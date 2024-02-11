@@ -1,8 +1,10 @@
 parameters:
   graviton.rql.lexer.class: Graviton\Rql\Lexer
   graviton.rql.parser.class: Graviton\Rql\Parser
+  graviton.rql.requestparser.class: Graviton\RqlParserBundle\Component\RequestParser
   graviton.rql.visitor.mongodb.class: Graviton\Rql\Visitor\MongoOdm
   graviton.rql.listener.request.class: Graviton\RqlParserBundle\Listener\RequestListener
+  graviton.rql.request.headername: 'x-rql-query'
 
 services:
   graviton.rql.sublexer:
@@ -17,11 +19,17 @@ services:
     class: "%graviton.rql.visitor.mongodb.class%"
     calls:
       - [setDispatcher, ['@event_dispatcher']]
+  graviton.rql.requestparser:
+    class: "%graviton.rql.requestparser.class%"
+    arguments:
+      - '@graviton.rql.lexer'
+      - '@graviton.rql.parser'
+      - "%graviton.rql.request.headername%"
 
   graviton.rql.listener.request:
     class: "%graviton.rql.listener.request.class%"
     tags:
       - { name: kernel.event_listener, event: kernel.request, method: onKernelRequest }
-    arguments: ['@graviton.rql.lexer', '@graviton.rql.parser']
+    arguments: ['@graviton.rql.requestparser']
 
   graviton.rql.visitor.default: "@graviton.rql.visitor.mongodb"
