@@ -2,14 +2,16 @@
 
 namespace Graviton\RqlParserBundle\Component;
 
+use Graviton\RqlParser\Query;
+
 class RequestParserResult
 {
 
     private bool $hasRql;
     private string $rawRql;
-    private $rqlQuery;
+    private ?Query $rqlQuery;
 
-    public function __construct(bool $hasRql, string $rawRql, $rqlQuery)
+    public function __construct(bool $hasRql, string $rawRql, ?Query $rqlQuery)
     {
         $this->hasRql = $hasRql;
         $this->rawRql = $rawRql;
@@ -29,7 +31,7 @@ class RequestParserResult
     /**
      * @return mixed
      */
-    public function getRqlQuery()
+    public function getRqlQuery() : ?Query
     {
         return $this->rqlQuery;
     }
