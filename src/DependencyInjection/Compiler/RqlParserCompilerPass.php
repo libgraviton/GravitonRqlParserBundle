@@ -22,7 +22,7 @@ class RqlParserCompilerPass implements CompilerPassInterface
      */
     public function process(ContainerBuilder $container)
     {
-        $hasListener = $container->hasParameter('graviton_rqlparser.activate_listener');
+        $hasListener = $container->getParameter('graviton_rqlparser.activate_listener');
         if (!$hasListener) {
             $container->removeDefinition('graviton.rql.listener.request');
         }
