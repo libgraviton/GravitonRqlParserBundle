@@ -5,8 +5,7 @@
 
 namespace Graviton\RqlParserBundle\Listener;
 
-use Graviton\RqlParser\Lexer;
-use Graviton\RqlParser\Parser;
+use Graviton\RqlParserBundle\Component\RequestParser;
 use Symfony\Component\HttpKernel\Event\RequestEvent;
 
 /**
@@ -14,31 +13,19 @@ use Symfony\Component\HttpKernel\Event\RequestEvent;
  * @license https://opensource.org/licenses/MIT MIT License
  * @link    http://swisscom.ch
  */
-class RequestListener implements RequestListenerInterface
+class RequestListener
 {
     /**
-     * @var Lexer
+     * @var RequestParser
      */
-    private $lexer;
+    private RequestParser $requestParser;
 
     /**
-     * @var Parser
+     * @param RequestParser $requestParser
      */
-    private $parser;
-
-    /**
-     * @var string
-     */
-    private $headerName = 'x-rql-query';
-
-    /**
-     * @param Lexer  $lexer  rql lexer
-     * @param Parser $parser rql parser
-     */
-    public function __construct(Lexer $lexer, Parser $parser)
+    public function __construct(RequestParser $requestParser)
     {
-        $this->lexer = $lexer;
-        $this->parser = $parser;
+        $this->requestParser = $requestParser;
     }
 
     /**
@@ -50,20 +37,12 @@ class RequestListener implements RequestListenerInterface
      */
     public function onKernelRequest(RequestEvent $event)
     {
+        $result = $this->requestParser->parse($event->getRequest());
         $request = $event->getRequest();
-
-        // grab rql query either from header or query string
-        $filter = $request->headers->get(
-            $this->headerName,
-            $request->server->get('QUERY_STRING', '')
-        );
-
-        if (empty($filter)) {
-            return;
+        if ($result->isHasRql()) {
+            $request->attributes->set('hasRql', true);
+            $request->attributes->set('rawRql', $result->getRawRql());
+            $request->attributes->set('rqlQuery', $result->getRqlQuery());
         }
-
-        $request->attributes->set('hasRql', true);
-        $request->attributes->set('rawRql', $filter);
-        $request->attributes->set('rqlQuery', $this->parser->parse($this->lexer->tokenize($filter)));
     }
 }
